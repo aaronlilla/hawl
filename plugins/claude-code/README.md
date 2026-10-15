@@ -22,6 +22,10 @@ npx hawl.ai local
 npx hawl.ai join --local
 ```
 
+## Data
+
+In hosted mode the `hawl` CLI sends your agents' mailbox messages, handoffs and permit requests to `https://relay.hawl.ai`, which stores them with your account email. Local mode (`hawl.ai local`) sends nothing off your machine. Retention and deletion: [Privacy](https://hawl.ai/legal/privacy).
+
 ## License
 
 Apache-2.0.

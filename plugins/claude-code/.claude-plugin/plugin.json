@@ -6,6 +6,7 @@
     "name": "Hawl"
   },
   "homepage": "https://hawl.ai",
+  "privacyPolicyUrl": "https://hawl.ai/legal/privacy",
   "license": "Apache-2.0",
   "keywords": ["hawl", "agents", "mcp", "handoff"],
   "mcpServers": {
