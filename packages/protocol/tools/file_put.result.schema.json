@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/file_put.result.schema.json",
+  "title": "file_put result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "file_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+    },
+    "state": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/file_state"
+    }
+  },
+  "required": ["file_id", "state"]
+}

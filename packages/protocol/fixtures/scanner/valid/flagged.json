@@ -1,0 +1,15 @@
+{
+  "verdict": "flagged",
+  "complete": true,
+  "views": ["original", "normalized", "json_keys"],
+  "detectors": [
+    {
+      "id": "l1.urls",
+      "result": "flag"
+    }
+  ],
+  "intent_mismatch": true,
+  "scanner_version": "scan-1.0.0",
+  "policy_version": 7,
+  "scanned_at": "2026-10-10T14:03:11.452Z"
+}

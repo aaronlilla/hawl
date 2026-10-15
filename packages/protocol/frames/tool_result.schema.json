@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/tool_result.schema.json",
+  "title": "WS frame tool.result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "tool.result"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "result": {},
+    "error": {
+      "$ref": "https://hawl.ai/protocol/schemas/error.schema.json#/properties/error"
+    }
+  },
+  "required": ["t", "id"],
+  "oneOf": [
+    {
+      "required": ["result"]
+    },
+    {
+      "required": ["error"]
+    }
+  ]
+}

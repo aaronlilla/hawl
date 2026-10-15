@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/handoff_update.args.schema.json",
+  "title": "handoff_update args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    },
+    "op": {
+      "enum": [
+        "accept",
+        "decline",
+        "done",
+        "verify",
+        "reject",
+        "cancel",
+        "reassign"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pr_url": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/http_url"
+        },
+        "sha": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/git_sha"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+          },
+          "maxItems": 10
+        },
+        "ci_url": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/http_url"
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9_-]{1,32}$"
+              },
+              "result": {
+                "enum": ["pass", "fail", "n/a"]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": ["id", "result"]
+          },
+          "maxItems": 10
+        }
+      }
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "to": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle"
+    }
+  },
+  "required": ["handoff_id", "op"]
+}

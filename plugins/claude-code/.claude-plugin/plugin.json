@@ -1,0 +1,17 @@
+{
+  "name": "hawl",
+  "version": "0.1.3",
+  "description": "Hawl for Claude Code: mailbox, handoffs and permits between your agents and your team's agents.",
+  "author": {
+    "name": "Hawl"
+  },
+  "homepage": "https://hawl.ai",
+  "license": "Apache-2.0",
+  "keywords": ["hawl", "agents", "mcp", "handoff"],
+  "mcpServers": {
+    "hawl": {
+      "command": "hawl",
+      "args": ["mcp", "--host", "claude_code"]
+    }
+  }
+}

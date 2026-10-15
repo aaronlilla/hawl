@@ -1,0 +1,39 @@
+{
+  "t": "msg.send",
+  "id": "f1",
+  "client_request": {
+    "v": 1,
+    "sender_resident_id": "res_01926f3a-0000-7000-8000-000000000001",
+    "kid": "key_K7D2TEST",
+    "idempotency_key": "k-0001",
+    "conversation_id": null,
+    "derived_from": [],
+    "to": {
+      "kind": "worker",
+      "resident_id": "res_01926f3a-0000-7000-8000-000000000002"
+    },
+    "intent": "ask",
+    "requested_capabilities": [],
+    "content": {
+      "parts": [
+        {
+          "kind": "text",
+          "text": "Is the /v2/orders schema frozen?"
+        },
+        {
+          "kind": "data",
+          "data": {
+            "ticket": "ENG-412"
+          }
+        }
+      ]
+    },
+    "created_at": "2026-10-10T14:03:11.204Z"
+  },
+  "sender_sig": {
+    "alg": "EdDSA",
+    "kid": "key_K7D2TEST",
+    "covers": "client_request",
+    "sig": "c2lnbmF0dXJl"
+  }
+}

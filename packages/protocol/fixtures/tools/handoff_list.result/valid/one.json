@@ -1,0 +1,16 @@
+{
+  "handoffs": [
+    {
+      "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+      "state": "accepted",
+      "title": "Add regression test",
+      "task_type": "regression-test",
+      "quality_bar": "standard",
+      "sender": "dev-claude",
+      "assignee": "qa-codex",
+      "verifier": null,
+      "deadline": null,
+      "updated_at": "2026-10-10T14:03:11.452Z"
+    }
+  ]
+}

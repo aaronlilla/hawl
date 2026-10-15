@@ -1,0 +1,270 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/common.schema.json",
+  "title": "Shared definitions",
+  "$defs": {
+    "id_twn": {
+      "type": "string",
+      "pattern": "^twn_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_res": {
+      "type": "string",
+      "pattern": "^res_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_vil": {
+      "type": "string",
+      "pattern": "^vil_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_usr": {
+      "type": "string",
+      "pattern": "^usr_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_chn": {
+      "type": "string",
+      "pattern": "^chn_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_hnd": {
+      "type": "string",
+      "pattern": "^hnd_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_rcp": {
+      "type": "string",
+      "pattern": "^rcp_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_fil": {
+      "type": "string",
+      "pattern": "^fil_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_upl": {
+      "type": "string",
+      "pattern": "^upl_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_jrq": {
+      "type": "string",
+      "pattern": "^jrq_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_msg": {
+      "type": "string",
+      "pattern": "^msg_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_cnv": {
+      "type": "string",
+      "pattern": "^cnv_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_grt": {
+      "type": "string",
+      "pattern": "^grt_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_apr": {
+      "type": "string",
+      "pattern": "^apr_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_act": {
+      "type": "string",
+      "pattern": "^act_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_whk": {
+      "type": "string",
+      "pattern": "^whk_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_evt": {
+      "type": "string",
+      "pattern": "^evt_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_req": {
+      "type": "string",
+      "pattern": "^req_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_ses": {
+      "type": "string",
+      "pattern": "^ses_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "id_cxn": {
+      "type": "string",
+      "pattern": "^cxn_[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "b64url": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+$",
+      "minLength": 1
+    },
+    "sha256_b64url": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{43}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "handle": {
+      "type": "string",
+      "pattern": "^@[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+    },
+    "text_body": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32768
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "working_on": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "intent": {
+      "enum": ["inform", "ask", "request_action", "reply", "status"]
+    },
+    "presence_state": {
+      "enum": ["idle", "busy", "away"]
+    },
+    "message_state": {
+      "enum": [
+        "scanning",
+        "scan_unavailable",
+        "held",
+        "blocked",
+        "rejected",
+        "queued",
+        "delivered",
+        "acked",
+        "expired"
+      ]
+    },
+    "handoff_state": {
+      "enum": [
+        "asked",
+        "accepted",
+        "declined",
+        "expired",
+        "cancelled",
+        "reassigned",
+        "done",
+        "verified",
+        "expired-lease"
+      ]
+    },
+    "file_state": {
+      "enum": [
+        "uploading",
+        "gate_check",
+        "scan_unavailable",
+        "clean",
+        "flagged",
+        "blocked",
+        "rejected",
+        "deleted"
+      ]
+    },
+    "quality_bar": {
+      "enum": ["quick", "standard", "critical"]
+    },
+    "platform": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "git_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}([0-9a-f]{24})?$"
+    },
+    "http_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https?://",
+      "maxLength": 2048
+    },
+    "json_object": {
+      "type": "object"
+    },
+    "mentions": {
+      "type": "array",
+      "items": {
+        "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle"
+      },
+      "maxItems": 5
+    },
+    "part": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "text"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 32768
+            }
+          },
+          "required": ["kind", "text"]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "data"
+            },
+            "data": {}
+          },
+          "required": ["kind", "data"]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "file"
+            },
+            "file_id": {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255
+            },
+            "mime": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 127
+            },
+            "bytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 26214400
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          "required": ["kind", "file_id", "name", "mime", "bytes", "sha256"]
+        }
+      ]
+    },
+    "jwk_ec_p256": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kty": {
+          "const": "EC"
+        },
+        "crv": {
+          "const": "P-256"
+        },
+        "x": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/b64url"
+        },
+        "y": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/b64url"
+        }
+      },
+      "required": ["kty", "crv", "x", "y"]
+    }
+  }
+}

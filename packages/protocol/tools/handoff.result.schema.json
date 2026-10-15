@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/handoff.result.schema.json",
+  "title": "handoff result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    },
+    "state": {
+      "const": "asked"
+    },
+    "message_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+    }
+  },
+  "required": ["handoff_id", "state", "message_id"]
+}

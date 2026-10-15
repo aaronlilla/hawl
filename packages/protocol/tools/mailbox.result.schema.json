@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/mailbox.result.schema.json",
+  "title": "mailbox result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "message_id": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 70000
+          }
+        },
+        "required": ["message_id", "text"]
+      },
+      "maxItems": 20
+    }
+  },
+  "required": ["messages"]
+}

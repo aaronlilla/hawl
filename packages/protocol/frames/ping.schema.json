@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/ping.schema.json",
+  "title": "WS frame ping",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "ping"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "ts": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    }
+  },
+  "required": ["t", "ts"]
+}

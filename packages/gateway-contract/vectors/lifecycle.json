@@ -1,0 +1,279 @@
+{
+  "schema": "lifecycle",
+  "cases": [
+    {
+      "name": "offer",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "offer",
+        "at": "2026-10-10T18:00:00Z"
+      }
+    },
+    {
+      "name": "accept",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "accept",
+        "at": "2026-10-10T18:01:00Z"
+      }
+    },
+    {
+      "name": "progress with note",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "progress",
+        "at": "2026-10-10T18:02:00Z",
+        "note": "half the suite done"
+      }
+    },
+    {
+      "name": "decline with reason",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t2",
+        "event": "decline",
+        "at": "2026-10-10T18:01:00Z",
+        "reason": "no capacity today"
+      }
+    },
+    {
+      "name": "cancel",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t3",
+        "event": "cancel",
+        "at": "2026-10-10T18:01:00Z"
+      }
+    },
+    {
+      "name": "expire",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t3",
+        "event": "expire",
+        "at": "2026-10-10T18:01:00Z"
+      }
+    },
+    {
+      "name": "reassign",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t4",
+        "event": "reassign",
+        "at": "2026-10-10T18:01:00Z",
+        "to": "other-yard"
+      }
+    },
+    {
+      "name": "done with sha and ci evidence",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "done",
+        "at": "2026-10-10T18:20:00Z",
+        "revision_sha": "0123456789abcdef0123456789abcdef01234567",
+        "evidence": [
+          { "kind": "sha", "ref": "0123456789abcdef0123456789abcdef01234567" },
+          { "kind": "ci", "ref": "https://ci.example.com/runs/42" }
+        ]
+      }
+    },
+    {
+      "name": "verify pass",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "verify",
+        "at": "2026-10-10T18:30:00Z",
+        "revision_sha": "0123456789abcdef0123456789abcdef01234567",
+        "result": "pass"
+      }
+    },
+    {
+      "name": "verify reject with reason",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "verify",
+        "at": "2026-10-10T18:30:00Z",
+        "revision_sha": "0123456789abcdef0123456789abcdef01234567",
+        "result": "reject",
+        "reason": "criterion 2 fails"
+      }
+    },
+    {
+      "name": "direct_line_open",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "direct_line_open",
+        "at": "2026-10-10T18:10:00Z",
+        "from_inner": "tester-3",
+        "to_village": "dev-yard",
+        "purpose": "ask about the flaky fixture",
+        "ttl_minutes": 30
+      }
+    },
+    {
+      "name": "direct_line_approve",
+      "valid": true,
+      "value": {
+        "yard": "dev-yard",
+        "task_id": "t1",
+        "event": "direct_line_approve",
+        "at": "2026-10-10T18:11:00Z"
+      }
+    },
+    {
+      "name": "direct_line_reject with reason",
+      "valid": true,
+      "value": {
+        "yard": "dev-yard",
+        "task_id": "t1",
+        "event": "direct_line_reject",
+        "at": "2026-10-10T18:11:00Z",
+        "reason": "not needed"
+      }
+    },
+
+    {
+      "name": "unknown event",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "teleport",
+        "at": "2026-10-10T18:00:00Z"
+      }
+    },
+    {
+      "name": "missing task_id",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "event": "offer",
+        "at": "2026-10-10T18:00:00Z"
+      }
+    },
+    {
+      "name": "done without evidence",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "done",
+        "at": "2026-10-10T18:20:00Z",
+        "revision_sha": "0123456789abcdef0123456789abcdef01234567"
+      }
+    },
+    {
+      "name": "done with empty evidence",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "done",
+        "at": "2026-10-10T18:20:00Z",
+        "revision_sha": "0123456789abcdef0123456789abcdef01234567",
+        "evidence": []
+      }
+    },
+    {
+      "name": "done with short sha",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "done",
+        "at": "2026-10-10T18:20:00Z",
+        "revision_sha": "0123abc",
+        "evidence": [{ "kind": "sha", "ref": "0123abc" }]
+      }
+    },
+    {
+      "name": "done with unknown evidence kind",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "done",
+        "at": "2026-10-10T18:20:00Z",
+        "revision_sha": "0123456789abcdef0123456789abcdef01234567",
+        "evidence": [{ "kind": "trust-me", "ref": "x" }]
+      }
+    },
+    {
+      "name": "verify without result",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "verify",
+        "at": "2026-10-10T18:30:00Z",
+        "revision_sha": "0123456789abcdef0123456789abcdef01234567"
+      }
+    },
+    {
+      "name": "reassign without target",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t4",
+        "event": "reassign",
+        "at": "2026-10-10T18:01:00Z"
+      }
+    },
+    {
+      "name": "direct_line_open ttl zero",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "direct_line_open",
+        "at": "2026-10-10T18:10:00Z",
+        "from_inner": "tester-3",
+        "to_village": "dev-yard",
+        "purpose": "p",
+        "ttl_minutes": 0
+      }
+    },
+    {
+      "name": "direct_line_open missing purpose",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "direct_line_open",
+        "at": "2026-10-10T18:10:00Z",
+        "from_inner": "tester-3",
+        "to_village": "dev-yard",
+        "ttl_minutes": 5
+      }
+    },
+    {
+      "name": "extra field on offer",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "task_id": "t1",
+        "event": "offer",
+        "at": "2026-10-10T18:00:00Z",
+        "worker": "inner-7"
+      }
+    }
+  ]
+}

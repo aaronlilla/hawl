@@ -1,0 +1,23 @@
+{
+  "to": "@qa-codex",
+  "task_type": "regression-test",
+  "title": "Add regression test",
+  "spec": "Cover /v2/orders",
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "passes",
+      "check": "ci"
+    }
+  ],
+  "verifier": "any_other_owner",
+  "deadline": "2026-10-12T00:00:00Z",
+  "quality_bar": "critical",
+  "links": [
+    {
+      "kind": "github_pr",
+      "url": "https://github.com/acme/app/pull/412"
+    }
+  ],
+  "files": ["fil_01926f3a-0000-7000-8000-000000000001"]
+}

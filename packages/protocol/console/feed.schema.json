@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/console/feed.schema.json",
+  "title": "Console WS feed",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "feed"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "town_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+    },
+    "at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "event": {
+      "enum": [
+        "message.sent",
+        "message.delivered",
+        "message.held",
+        "message.blocked",
+        "message.flagged",
+        "message.expired"
+      ]
+    },
+    "message_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+    },
+    "conversation_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_cnv"
+    },
+    "from": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+    },
+    "to": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+        },
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_chn"
+        }
+      ]
+    },
+    "intent": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/intent"
+    },
+    "verdict": {
+      "enum": ["clean", "flagged", "blocked", "scan_unavailable"]
+    },
+    "turn": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "preview": {
+      "type": "string",
+      "maxLength": 280
+    }
+  },
+  "required": [
+    "t",
+    "seq",
+    "town_id",
+    "at",
+    "event",
+    "message_id",
+    "from",
+    "to",
+    "intent"
+  ]
+}

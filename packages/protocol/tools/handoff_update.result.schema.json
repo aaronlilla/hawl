@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/handoff_update.result.schema.json",
+  "title": "handoff_update result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "state": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handoff_state"
+    },
+    "receipt_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_rcp"
+    }
+  },
+  "required": ["state"]
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/ack.schema.json",
+  "title": "WS frame ack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "ack"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "up_to_seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "message_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+      },
+      "minItems": 1,
+      "maxItems": 100
+    }
+  },
+  "required": ["t"],
+  "oneOf": [
+    {
+      "required": ["up_to_seq"]
+    },
+    {
+      "required": ["message_ids"]
+    }
+  ]
+}

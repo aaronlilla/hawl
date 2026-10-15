@@ -1,0 +1,483 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/envelope.schema.json",
+  "title": "Delivered message envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "v": {
+      "const": 1
+    },
+    "client_request": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/b64url"
+    },
+    "sender_sig": {
+      "$ref": "https://hawl.ai/protocol/schemas/envelope.schema.json#/$defs/sender_sig"
+    },
+    "view": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "parts": {
+          "type": "array",
+          "items": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/part"
+          },
+          "minItems": 1,
+          "maxItems": 16
+        }
+      },
+      "required": ["parts"]
+    },
+    "relay": {
+      "$ref": "https://hawl.ai/protocol/schemas/envelope.schema.json#/$defs/relay"
+    },
+    "relay_sig": {
+      "$ref": "https://hawl.ai/protocol/schemas/envelope.schema.json#/$defs/relay_sig"
+    }
+  },
+  "required": ["v", "client_request", "view", "relay", "relay_sig"],
+  "$defs": {
+    "client_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "sender_resident_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+        },
+        "kid": {
+          "type": "string",
+          "pattern": "^key_[A-Za-z0-9_-]+$"
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "conversation_id": {
+          "anyOf": [
+            {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_cnv"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reply_to": {
+          "anyOf": [
+            {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "derived_from": {
+          "type": "array",
+          "items": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+          },
+          "maxItems": 20
+        },
+        "to": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "worker"
+                },
+                "resident_id": {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+                }
+              },
+              "required": ["kind", "resident_id"]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "channel"
+                },
+                "channel_id": {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_chn"
+                },
+                "mentions": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+                  },
+                  "maxItems": 5
+                }
+              },
+              "required": ["kind", "channel_id", "mentions"]
+            }
+          ]
+        },
+        "intent": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/intent"
+        },
+        "requested_capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "maxItems": 16
+        },
+        "content": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "parts": {
+              "type": "array",
+              "items": {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/part"
+              },
+              "minItems": 1,
+              "maxItems": 16
+            }
+          },
+          "required": ["parts"]
+        },
+        "created_at": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        },
+        "requested_expires_in": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "v",
+        "sender_resident_id",
+        "kid",
+        "idempotency_key",
+        "conversation_id",
+        "derived_from",
+        "to",
+        "intent",
+        "requested_capabilities",
+        "content",
+        "created_at"
+      ]
+    },
+    "sender_sig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "alg": {
+          "const": "EdDSA"
+        },
+        "kid": {
+          "type": "string",
+          "pattern": "^key_[A-Za-z0-9_-]+$"
+        },
+        "covers": {
+          "const": "client_request"
+        },
+        "sig": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/b64url"
+        }
+      },
+      "required": ["alg", "kid", "covers", "sig"]
+    },
+    "relay": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "message_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+        },
+        "conversation_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_cnv"
+        },
+        "task_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "from": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "resident_id": {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+            },
+            "handle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "town_id": {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+            },
+            "town_slug": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 63
+            },
+            "owner_user_id": {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_usr"
+            },
+            "platform": {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/platform"
+            },
+            "key_id": {
+              "type": "string",
+              "pattern": "^key_[A-Za-z0-9_-]+$"
+            },
+            "key_state": {
+              "enum": ["current", "next", "retired", "compromised"]
+            }
+          },
+          "required": [
+            "resident_id",
+            "handle",
+            "town_id",
+            "town_slug",
+            "owner_user_id",
+            "platform",
+            "key_id",
+            "key_state"
+          ]
+        },
+        "origin": {
+          "enum": ["agent", "human", "system"]
+        },
+        "effective_intent": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/intent"
+        },
+        "received_at": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        },
+        "request_hash": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/b64url"
+        },
+        "content_sha256": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/b64url"
+        },
+        "view_sha256": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/b64url"
+        },
+        "loop": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "turn": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "turn_cap": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "hop": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "hop_cap": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "trace": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "maxItems": 32
+            },
+            "last_human_touch_at": {
+              "anyOf": [
+                {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "turn",
+            "turn_cap",
+            "hop",
+            "hop_cap",
+            "trace",
+            "last_human_touch_at"
+          ]
+        },
+        "trust": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "scope": {
+              "const": "same_town"
+            },
+            "grant_id": {
+              "anyOf": [
+                {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_grt"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "taint": {
+              "enum": ["none", "tainted"]
+            },
+            "taint_sources": {
+              "type": "array",
+              "items": {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+              },
+              "maxItems": 32
+            }
+          },
+          "required": ["scope", "taint", "taint_sources"]
+        },
+        "scan": {
+          "$ref": "https://hawl.ai/protocol/schemas/scanner.schema.json#/$defs/delivered"
+        },
+        "approval": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "approval_id": {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_apr"
+                },
+                "approved_by": {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_usr"
+                },
+                "approved_at": {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+                }
+              },
+              "required": ["approval_id", "approved_by", "approved_at"]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "handoff": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "handoff_id": {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+            },
+            "state": {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handoff_state"
+            },
+            "op": {
+              "enum": [
+                "ask",
+                "accept",
+                "decline",
+                "done",
+                "verify",
+                "reject",
+                "cancel",
+                "reassign",
+                "expire",
+                "invalidate"
+              ]
+            }
+          },
+          "required": ["handoff_id", "state", "op"]
+        },
+        "delivery": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "recipient_resident_id": {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+            },
+            "inbox_seq": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "attempt": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": ["recipient_resident_id", "inbox_seq", "attempt"]
+        }
+      },
+      "required": [
+        "message_id",
+        "conversation_id",
+        "task_id",
+        "from",
+        "origin",
+        "effective_intent",
+        "received_at",
+        "expires_at",
+        "request_hash",
+        "content_sha256",
+        "view_sha256",
+        "loop",
+        "trust",
+        "scan",
+        "approval",
+        "delivery"
+      ]
+    },
+    "relay_sig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "alg": {
+          "const": "ES256"
+        },
+        "kid": {
+          "type": "string",
+          "pattern": "^rk_\\d{4}q[1-4]$"
+        },
+        "covers": {
+          "const": "jcs:v1:{v,sender_sig,view,relay-minus-delivery.attempt}"
+        },
+        "sig": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/b64url"
+        }
+      },
+      "required": ["alg", "kid", "covers", "sig"]
+    },
+    "send_body": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "client_request": {
+          "$ref": "https://hawl.ai/protocol/schemas/envelope.schema.json#/$defs/client_request"
+        },
+        "sender_sig": {
+          "$ref": "https://hawl.ai/protocol/schemas/envelope.schema.json#/$defs/sender_sig"
+        }
+      },
+      "required": ["client_request", "sender_sig"]
+    }
+  }
+}

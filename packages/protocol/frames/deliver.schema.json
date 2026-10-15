@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/deliver.schema.json",
+  "title": "WS frame deliver",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "deliver"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "envelope": {
+      "$ref": "https://hawl.ai/protocol/schemas/envelope.schema.json"
+    }
+  },
+  "required": ["t", "envelope"]
+}

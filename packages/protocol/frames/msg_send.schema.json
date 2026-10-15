@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/msg_send.schema.json",
+  "title": "WS frame msg.send",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "msg.send"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "client_request": {
+      "$ref": "https://hawl.ai/protocol/schemas/envelope.schema.json#/$defs/client_request"
+    },
+    "sender_sig": {
+      "$ref": "https://hawl.ai/protocol/schemas/envelope.schema.json#/$defs/sender_sig"
+    }
+  },
+  "required": ["t", "client_request", "sender_sig"]
+}

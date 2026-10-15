@@ -1,0 +1,189 @@
+#!/usr/bin/env python3
+"""Hawl tray for Linux desktops: shows whether the hawl helper (daemon) is running, with
+start, stop, update and "connect a project folder". Uses GTK 3 and Ayatana AppIndicator
+(GNOME needs the AppIndicator extension, which Ubuntu ships on by default)."""
+import json
+import os
+import re
+import shlex
+import shutil
+import subprocess
+import sys
+
+HOME = os.path.expanduser("~")
+STATE = os.environ.get("HAWL_HOME") or os.path.join(HOME, ".hawl")
+HAWL = os.path.join(HOME, ".hawl", "bin", "hawl")
+UNIT = "hawl-daemon.service"
+SITE_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/-]{0,199}$")
+ICON = os.path.join(HOME, ".local", "share", "icons", "hicolor", "192x192", "apps", "hawl.png")
+
+try:
+    import gi
+
+    gi.require_version("Gtk", "3.0")
+    try:
+        gi.require_version("AyatanaAppIndicator3", "0.1")
+        from gi.repository import AyatanaAppIndicator3 as AppIndicator
+    except (ValueError, ImportError):
+        gi.require_version("AppIndicator3", "0.1")
+        from gi.repository import AppIndicator3 as AppIndicator
+    from gi.repository import GLib, Gtk
+except (ImportError, ValueError) as e:
+    sys.stderr.write(
+        "hawl-tray needs GTK 3 and AppIndicator: sudo apt install gir1.2-ayatanaappindicator3-0.1 "
+        f"python3-gi ({e}). The hawl helper runs without the tray.\n"
+    )
+    sys.exit(0)
+
+
+def run(args, timeout=20):
+    try:
+        r = subprocess.run(args, cwd=HOME, capture_output=True, text=True, timeout=timeout)
+        return r.returncode, r.stdout
+    except (OSError, subprocess.TimeoutExpired):
+        return 127, ""
+
+
+def status():
+    if not os.path.exists(HAWL):
+        return "hawl is not installed. Run the Hawl setup again.", False
+    _, out = run([HAWL, "status", "--json"], timeout=8)
+    try:
+        d = json.loads(out)["daemon"]
+    except (ValueError, KeyError, TypeError):
+        return "Helper stopped", False
+    if not d.get("running"):
+        return "Helper stopped", False
+    text = "Helper running" + (f" (v{d['version']})" if d.get("version") else "")
+    w, c = d.get("workers") or 0, d.get("connected") or 0
+    text += ", no folders connected" if w == 0 else f", {c} of {w} agents online"
+    return text, True
+
+
+def terminal(command):
+    """Run `command` in a visible terminal so the user sees prompts (join, update)."""
+    sh = ["sh", "-c", command + '; echo; printf "Press Enter to close. "; read _']
+    for term, flag in (
+        ("x-terminal-emulator", "-e"),
+        ("gnome-terminal", "--"),
+        ("konsole", "-e"),
+        ("xfce4-terminal", "-x"),
+        ("xterm", "-e"),
+    ):
+        if shutil.which(term):
+            subprocess.Popen([term, flag, *sh])
+            return
+    dialog("No terminal app found. Run this yourself:\n" + command)
+
+
+def dialog(msg):
+    d = Gtk.MessageDialog(message_type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK, text=msg)
+    d.run()
+    d.destroy()
+
+
+class Tray:
+    def __init__(self):
+        self.ind = AppIndicator.Indicator.new(
+            "hawl", ICON if os.path.exists(ICON) else "network-workgroup",
+            AppIndicator.IndicatorCategory.APPLICATION_STATUS,
+        )
+        self.ind.set_status(AppIndicator.IndicatorStatus.ACTIVE)
+        self.ind.set_title("Hawl")
+        menu = Gtk.Menu()
+        self.line = Gtk.MenuItem(label="Checking the hawl helper…")
+        self.line.set_sensitive(False)
+        menu.append(self.line)
+        menu.append(Gtk.SeparatorMenuItem())
+        self.start_item = self.item(menu, "Start helper", self.start)
+        self.stop_item = self.item(menu, "Stop helper", self.stop)
+        self.item(menu, "Restart helper", self.restart)
+        menu.append(Gtk.SeparatorMenuItem())
+        self.item(menu, "Connect a project folder…", self.connect)
+        self.item(menu, "Check for updates…", self.update)
+        self.item(menu, "Open hawl.ai", lambda: subprocess.Popen(["xdg-open", "https://hawl.ai"]))
+        self.item(menu, "Open logs folder", self.logs)
+        menu.append(Gtk.SeparatorMenuItem())
+        self.item(menu, "Quit tray (helper keeps running)", Gtk.main_quit)
+        menu.show_all()
+        self.ind.set_menu(menu)
+        self.poll()
+        GLib.timeout_add_seconds(10, self.poll)
+
+    def item(self, menu, label, fn):
+        m = Gtk.MenuItem(label=label)
+        m.connect("activate", lambda _w: fn())
+        menu.append(m)
+        return m
+
+    def poll(self):
+        text, running = status()
+        self.line.set_label(text)
+        self.start_item.set_sensitive(not running)
+        self.stop_item.set_sensitive(running)
+        return True
+
+    # systemd's Restart=always would restart a helper that exits, so stop and start go through it.
+    def start(self):
+        if run(["systemctl", "--user", "start", UNIT])[0] != 0:
+            run([HAWL, "daemon", "start"])
+        GLib.timeout_add(1500, lambda: self.poll() and False)
+
+    def stop(self):
+        if run(["systemctl", "--user", "stop", UNIT])[0] != 0:
+            run([HAWL, "daemon", "stop"], timeout=8)
+        GLib.timeout_add(1500, lambda: self.poll() and False)
+
+    def restart(self):
+        if run(["systemctl", "--user", "restart", UNIT])[0] != 0:
+            run([HAWL, "daemon", "stop"], timeout=8)
+            run([HAWL, "daemon", "start"])
+        GLib.timeout_add(1500, lambda: self.poll() and False)
+
+    def connect(self):
+        chooser = Gtk.FileChooserDialog(
+            title="Pick the project folder your agent works in",
+            action=Gtk.FileChooserAction.SELECT_FOLDER,
+        )
+        chooser.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Choose", Gtk.ResponseType.OK)
+        ok = chooser.run() == Gtk.ResponseType.OK
+        folder = chooser.get_filename()
+        chooser.destroy()
+        if not ok or not folder:
+            return
+        d = Gtk.MessageDialog(
+            message_type=Gtk.MessageType.QUESTION,
+            buttons=Gtk.ButtonsType.OK_CANCEL,
+            text="Your site's address or name (for example hawl.ai/t/acme or acme):",
+        )
+        entry = Gtk.Entry()
+        entry.set_activates_default(True)
+        d.get_message_area().pack_end(entry, False, False, 0)
+        d.set_default_response(Gtk.ResponseType.OK)
+        d.show_all()
+        ok = d.run() == Gtk.ResponseType.OK
+        site = entry.get_text().strip()
+        d.destroy()
+        if not ok:
+            return
+        if not SITE_RE.match(site):
+            dialog("That doesn't look like a site address. Copy it from your site's page on hawl.ai.")
+            return
+        q = shlex.quote
+        terminal(f"cd {q(folder)} && {q(HAWL)} join {q(site)}")
+
+    def update(self):
+        h = shlex.quote(HAWL)
+        terminal(f"{h} update && {h} update --now && systemctl --user restart {UNIT} && echo Done.")
+
+    def logs(self):
+        logs = os.path.join(STATE, "logs")
+        subprocess.Popen(["xdg-open", logs if os.path.isdir(logs) else STATE])
+
+
+if __name__ == "__main__":
+    if "--status" in sys.argv:
+        print(status()[0])
+        sys.exit(0)
+    Tray()
+    Gtk.main()

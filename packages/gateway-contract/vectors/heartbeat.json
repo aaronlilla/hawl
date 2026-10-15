@@ -1,0 +1,105 @@
+{
+  "schema": "heartbeat",
+  "cases": [
+    {
+      "name": "spec example",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "state": "online",
+        "load": { "active_tasks": 3, "queued": 1 },
+        "workers": { "busy": 4, "idle": 2 },
+        "needs_human": 0,
+        "as_of": "2026-10-10T18:04:00Z"
+      }
+    },
+    {
+      "name": "offline with zero counts",
+      "valid": true,
+      "value": {
+        "yard": "qa-yard",
+        "state": "offline",
+        "load": { "active_tasks": 0, "queued": 0 },
+        "workers": { "busy": 0, "idle": 0 },
+        "needs_human": 0,
+        "as_of": "2026-10-10T18:05:00+00:00"
+      }
+    },
+    {
+      "name": "full visibility lists inner agents",
+      "valid": true,
+      "value": {
+        "yard": "big-yard",
+        "state": "degraded",
+        "load": { "active_tasks": 1, "queued": 0 },
+        "workers": { "busy": 1, "idle": 1 },
+        "needs_human": 1,
+        "as_of": "2026-10-10T18:06:00Z",
+        "agents": [
+          { "id": "a1", "status": "busy" },
+          { "id": "a2", "status": "needs_human" }
+        ]
+      }
+    },
+    {
+      "name": "missing as_of",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "state": "online",
+        "load": { "active_tasks": 3, "queued": 1 },
+        "workers": { "busy": 4, "idle": 2 },
+        "needs_human": 0
+      }
+    },
+    {
+      "name": "negative queued",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "state": "online",
+        "load": { "active_tasks": 3, "queued": -1 },
+        "workers": { "busy": 4, "idle": 2 },
+        "needs_human": 0,
+        "as_of": "2026-10-10T18:04:00Z"
+      }
+    },
+    {
+      "name": "bad timestamp",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "state": "online",
+        "load": { "active_tasks": 3, "queued": 1 },
+        "workers": { "busy": 4, "idle": 2 },
+        "needs_human": 0,
+        "as_of": "yesterday"
+      }
+    },
+    {
+      "name": "unknown state",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "state": "sleeping",
+        "load": { "active_tasks": 3, "queued": 1 },
+        "workers": { "busy": 4, "idle": 2 },
+        "needs_human": 0,
+        "as_of": "2026-10-10T18:04:00Z"
+      }
+    },
+    {
+      "name": "extra field leaks a task title",
+      "valid": false,
+      "value": {
+        "yard": "qa-yard",
+        "state": "online",
+        "load": { "active_tasks": 3, "queued": 1 },
+        "workers": { "busy": 4, "idle": 2 },
+        "needs_human": 0,
+        "as_of": "2026-10-10T18:04:00Z",
+        "current_task": "ship the thing"
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/console/files.schema.json",
+  "title": "Console WS files",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "files"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "town_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+    },
+    "at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "event": {
+      "enum": ["file.state", "file.shared", "file.deleted"]
+    },
+    "file_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+    },
+    "state": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/file_state"
+    },
+    "verdict": {
+      "enum": ["clean", "flagged", "blocked", "scan_unavailable"]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "uploader": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+    }
+  },
+  "required": ["t", "seq", "town_id", "at", "event", "file_id", "state"]
+}

@@ -1,0 +1,96 @@
+{
+  "description": "RFC 8785 canonical bytes. expect=match: jcs(JSON.parse(input)) must equal canonical. expect=mismatch: it must not.",
+  "cases": [
+    {
+      "name": "key order",
+      "input": "{\"b\":1,\"a\":2}",
+      "canonical": "{\"a\":2,\"b\":1}",
+      "expect": "match",
+      "canonical_hex": "7b2261223a322c2262223a317d"
+    },
+    {
+      "name": "nested sort",
+      "input": "{\"z\":{\"y\":1,\"x\":[3,{\"b\":1,\"a\":0}]},\"a\":null}",
+      "canonical": "{\"a\":null,\"z\":{\"x\":[3,{\"a\":0,\"b\":1}],\"y\":1}}",
+      "expect": "match",
+      "canonical_hex": "7b2261223a6e756c6c2c227a223a7b2278223a5b332c7b2261223a302c2262223a317d5d2c2279223a317d7d"
+    },
+    {
+      "name": "whitespace dropped",
+      "input": "{ \"a\" : [ 1 , 2 ] , \"b\" : true }",
+      "canonical": "{\"a\":[1,2],\"b\":true}",
+      "expect": "match",
+      "canonical_hex": "7b2261223a5b312c325d2c2262223a747275657d"
+    },
+    {
+      "name": "utf16 code unit order",
+      "input": "{\"\\ud83d\\ude00\":1,\"\\ufb33\":2,\"a\":3}",
+      "canonical": "{\"a\":3,\"😀\":1,\"דּ\":2}",
+      "expect": "match",
+      "canonical_hex": "7b2261223a332c22f09f9880223a312c22efacb3223a327d"
+    },
+    {
+      "name": "numbers rfc8785",
+      "input": "[0.000001,1e21,1e-7,-0,1E30,123456789012345680000,4.5,100]",
+      "canonical": "[0.000001,1e+21,1e-7,0,1e+30,123456789012345680000,4.5,100]",
+      "expect": "match",
+      "canonical_hex": "5b302e3030303030312c31652b32312c31652d372c302c31652b33302c3132333435363738393031323334353638303030302c342e352c3130305d"
+    },
+    {
+      "name": "string escapes",
+      "input": "{\"s\":\"a\\u0008\\u000c\\n\\r\\t\\u0001\\u007f\\\"\\\\/\"}",
+      "canonical": "{\"s\":\"a\\b\\f\\n\\r\\t\\u0001\\\"\\\\/\"}",
+      "expect": "match",
+      "canonical_hex": "7b2273223a22615c625c665c6e5c725c745c75303030317f5c225c5c2f227d"
+    },
+    {
+      "name": "unicode preserved not normalized",
+      "input": "{\"s\":\"e\\u0301 \\u00e9\"}",
+      "canonical": "{\"s\":\"é é\"}",
+      "expect": "match",
+      "canonical_hex": "7b2273223a2265cc8120c3a9227d"
+    },
+    {
+      "name": "empty containers",
+      "input": "{\"a\":{},\"b\":[]}",
+      "canonical": "{\"a\":{},\"b\":[]}",
+      "expect": "match",
+      "canonical_hex": "7b2261223a7b7d2c2262223a5b5d7d"
+    },
+    {
+      "name": "hawl client_request",
+      "input": "{\"v\":1,\"to\":{\"kind\":\"worker\",\"resident_id\":\"res_x\"},\"content\":{\"parts\":[{\"kind\":\"text\",\"text\":\"hi\"}]}}",
+      "canonical": "{\"content\":{\"parts\":[{\"kind\":\"text\",\"text\":\"hi\"}]},\"to\":{\"kind\":\"worker\",\"resident_id\":\"res_x\"},\"v\":1}",
+      "expect": "match",
+      "canonical_hex": "7b22636f6e74656e74223a7b227061727473223a5b7b226b696e64223a2274657874222c2274657874223a226869227d5d7d2c22746f223a7b226b696e64223a22776f726b6572222c227265736964656e745f6964223a227265735f78227d2c2276223a317d"
+    },
+    {
+      "name": "tampered: keys not sorted",
+      "input": "{\"b\":1,\"a\":2}",
+      "canonical": "{\"b\":1,\"a\":2}",
+      "expect": "mismatch",
+      "canonical_hex": "7b2262223a312c2261223a327d"
+    },
+    {
+      "name": "tampered: whitespace kept",
+      "input": "{\"a\":1}",
+      "canonical": "{ \"a\": 1 }",
+      "expect": "mismatch",
+      "canonical_hex": "7b202261223a2031207d"
+    },
+    {
+      "name": "tampered: number 1e21 not exponent form",
+      "input": "[1e21]",
+      "canonical": "[1000000000000000000000]",
+      "expect": "mismatch",
+      "canonical_hex": "5b313030303030303030303030303030303030303030305d"
+    },
+    {
+      "name": "tampered: one byte changed",
+      "input": "{\"a\":\"b\"}",
+      "canonical": "{\"a\":\"c\"}",
+      "expect": "mismatch",
+      "canonical_hex": "7b2261223a2263227d"
+    }
+  ]
+}

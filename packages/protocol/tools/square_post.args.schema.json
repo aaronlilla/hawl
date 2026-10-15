@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/square_post.args.schema.json",
+  "title": "square_post args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "text": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/text_body"
+    },
+    "data": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/json_object"
+    },
+    "mentions": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/mentions"
+    }
+  },
+  "required": ["text"]
+}
