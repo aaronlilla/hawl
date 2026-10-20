@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/console/workers.schema.json",
+  "title": "Console WS workers",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "workers"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "town_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+    },
+    "at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "event": {
+      "enum": [
+        "worker.joined",
+        "worker.left",
+        "worker.presence",
+        "worker.suspended",
+        "worker.labeled",
+        "worker.paused",
+        "worker.trusted_set",
+        "worker.key_rotated",
+        "join.started",
+        "host.attached",
+        "resident.joined",
+        "resident.approved",
+        "resident.declined",
+        "worker.activity",
+        "worker.profile_set"
+      ]
+    },
+    "resident_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+    },
+    "status": {
+      "enum": ["idle", "busy", "away", "offline"]
+    },
+    "auto_admitted": {
+      "type": "boolean"
+    },
+    "let_in_with": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "presence": {
+      "enum": ["working", "here", "away", "offline"]
+    },
+    "working_on": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/working_on"
+    },
+    "join_request_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_jrq"
+    },
+    "host": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]{1,40}$"
+    },
+    "folder_label": {
+      "type": ["string", "null"],
+      "maxLength": 120
+    },
+    "machine_name": {
+      "type": ["string", "null"],
+      "maxLength": 40
+    },
+    "handle": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "label": {
+      "type": ["string", "null"],
+      "maxLength": 24
+    },
+    "paused": {
+      "type": "boolean"
+    },
+    "trusted_senders": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+      }
+    },
+    "needs_owner_approval": {
+      "type": "boolean"
+    },
+    "activity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "session_start",
+            "session_stop",
+            "subagent_start",
+            "subagent_stop",
+            "tool_before",
+            "tool_after",
+            "model_call",
+            "process_start",
+            "process_exit"
+          ]
+        },
+        "source": {
+          "enum": ["hook", "otlp", "proc"]
+        },
+        "ts": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        },
+        "host": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "agent_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "agent_type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "tool": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "pid": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "parent_pid": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "exit_code": {
+          "type": ["integer", "null"]
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": ["kind", "source", "ts"]
+    },
+    "specialties": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/specialties"
+    },
+    "knows": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/knows"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": ["t", "seq", "town_id", "at", "event"],
+  "if": {
+    "properties": {
+      "event": {
+        "const": "join.started"
+      }
+    },
+    "required": ["event"]
+  },
+  "then": {
+    "required": ["join_request_id", "host"]
+  },
+  "else": {
+    "required": ["resident_id"]
+  }
+}

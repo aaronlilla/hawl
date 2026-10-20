@@ -1,0 +1,17 @@
+{
+  "t": "file.state",
+  "file_id": "fil_01926f3a-0000-7000-8000-000000000001",
+  "state": "clean",
+  "verdict": {
+    "verdict": "clean",
+    "detectors": [
+      {
+        "id": "clamd",
+        "result": "pass"
+      }
+    ],
+    "scanner_version": "scan-1.0.0",
+    "scanned_at": "2026-10-10T14:03:11.452Z"
+  },
+  "zzz_extra": 1
+}

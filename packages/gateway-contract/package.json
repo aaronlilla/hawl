@@ -1,0 +1,16 @@
+{
+  "name": "@hawl/gateway-contract",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-concurrency=2 \"src/**/*.test.ts\""
+  },
+  "dependencies": {
+    "zod": "4.6.5",
+    "@hawl/protocol": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5"
+  }
+}

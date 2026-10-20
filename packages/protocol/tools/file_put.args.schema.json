@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/file_put.args.schema.json",
+  "title": "file_put args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "upload_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_upl"
+    }
+  },
+  "oneOf": [
+    {
+      "required": ["path"]
+    },
+    {
+      "required": ["upload_id"]
+    }
+  ]
+}

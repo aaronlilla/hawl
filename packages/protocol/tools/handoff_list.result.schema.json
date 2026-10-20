@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/handoff_list.result.schema.json",
+  "title": "handoff_list result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "handoffs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "handoff_id": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+          },
+          "state": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handoff_state"
+          },
+          "title": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/title"
+          },
+          "task_type": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "quality_bar": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/quality_bar"
+          },
+          "number": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sender": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "from": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "assignee": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "verifier": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "deadline": {
+            "anyOf": [
+              {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "updated_at": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+          }
+        },
+        "required": [
+          "handoff_id",
+          "state",
+          "title",
+          "task_type",
+          "quality_bar",
+          "sender",
+          "assignee",
+          "verifier",
+          "deadline",
+          "updated_at"
+        ]
+      },
+      "maxItems": 200
+    }
+  },
+  "required": ["handoffs"]
+}

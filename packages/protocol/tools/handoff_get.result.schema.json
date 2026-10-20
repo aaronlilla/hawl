@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/handoff_get.result.schema.json",
+  "title": "handoff_get result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    },
+    "number": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "state": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handoff_state"
+    },
+    "title": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string"
+    },
+    "quality_bar": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/quality_bar"
+    },
+    "spec": {
+      "anyOf": [{ "type": "string" }, { "type": "null" }]
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "text": { "type": "string" },
+          "check": { "enum": ["manual", "ci", "file"] }
+        },
+        "required": ["id", "text", "check"]
+      }
+    },
+    "sender": { "type": "string" },
+    "assignee": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+    "verifier": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+    "deadline": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        },
+        { "type": "null" }
+      ]
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": { "type": "string" },
+          "url": { "type": "string" }
+        },
+        "required": ["kind", "url"]
+      }
+    },
+    "spec_files": { "$ref": "#/$defs/files" },
+    "revision": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+    "evidence": {
+      "anyOf": [{ "type": "object" }, { "type": "null" }]
+    },
+    "evidence_files": { "$ref": "#/$defs/files" },
+    "updated_at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    }
+  },
+  "required": [
+    "handoff_id",
+    "state",
+    "title",
+    "task_type",
+    "spec",
+    "criteria",
+    "sender",
+    "assignee",
+    "verifier",
+    "revision",
+    "evidence",
+    "evidence_files"
+  ],
+  "$defs": {
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "file_id": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+          },
+          "name": { "type": "string" },
+          "mime": { "type": "string" },
+          "bytes": { "type": "integer", "minimum": 0 },
+          "state": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/file_state"
+          }
+        },
+        "required": ["file_id", "name", "state"]
+      }
+    }
+  }
+}

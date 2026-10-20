@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/handoff.args.schema.json",
+  "title": "handoff args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "to": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle"
+    },
+    "task_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "title": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/title"
+    },
+    "spec": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/text_body"
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_-]{1,32}$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "check": {
+            "enum": ["manual", "ci", "file"]
+          }
+        },
+        "required": ["id", "text", "check"]
+      },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "verifier": {
+      "type": "string",
+      "pattern": "^(any_other_owner|@?[A-Za-z0-9][A-Za-z0-9._-]{0,63})$"
+    },
+    "deadline": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "quality_bar": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/quality_bar"
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": ["github_pr", "github_issue", "url"]
+          },
+          "url": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/http_url"
+          }
+        },
+        "required": ["kind", "url"]
+      },
+      "maxItems": 10
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+      },
+      "maxItems": 10
+    }
+  },
+  "required": ["task_type", "title", "spec", "criteria"]
+}

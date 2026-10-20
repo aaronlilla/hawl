@@ -1,0 +1,101 @@
+# Lives in the public repo aaronlilla/hawl (copied there by mirror.yml). Not run in the private repo.
+# Required repo secrets: none. npm publishes through trusted publishing (OIDC), no token stored.
+# The release manifest (SHA256SUMS) is signed keyless with cosign (GitHub OIDC); the bundle ships in the Release.
+# Promotion of the next tag to latest after 48 h is done by promote.yml (daily cron).
+# Setup once: npm package "hawl" -> trusted publisher -> this repo, workflow release.yml.
+# The mirrored tree carries the root package.json (packageManager), pnpm-workspace.yaml and pnpm-lock.yaml; mirror.yml installs and builds it before pushing.
+# Needs @hawl/cli to define the scripts "build" (esbuild bundle) and "build:sea" (node --build-sea per target).
+name: release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+concurrency:
+  group: release
+  cancel-in-progress: false
+jobs:
+  npm:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+      - run: pnpm i --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter @hawl/cli run build
+      - name: Publish to the next channel (promoted to latest after 48 h)
+        working-directory: packages/cli
+        run: npm publish --provenance --access public --tag next
+
+  binaries:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: win-x64
+          - os: macos-latest
+            target: darwin-arm64
+          - os: ubuntu-latest
+            target: linux-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: pnpm
+      - run: pnpm i --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter @hawl/cli run build
+      - run: pnpm --filter @hawl/cli run build:sea -- --target ${{ matrix.target }}
+      # Desktop installers (packages/desktop): Windows setup.exe, macOS dmg, Linux tarball.
+      - name: Desktop installer
+        shell: bash
+        run: |
+          set -euo pipefail
+          v="${GITHUB_REF_NAME#v}"
+          case "${{ matrix.target }}" in
+            win-x64) pwsh -File packages/desktop/windows/build.ps1 -Version "$v" ;;
+            darwin-arm64) sh packages/desktop/macos/build.sh "$v" ;;
+            linux-x64) sh packages/desktop/linux/build.sh ;;
+          esac
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hawl-${{ matrix.target }}
+          path: |
+            packages/cli/dist/hawl-${{ matrix.target }}*
+            packages/cli/dist/hawl-setup-*.exe
+            packages/cli/dist/hawl-desktop-*
+          if-no-files-found: error
+
+  github-release:
+    needs: [npm, binaries]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: sigstore/cosign-installer@v3
+      - uses: actions/download-artifact@v4
+        with:
+          path: assets
+          merge-multiple: true
+      - name: Checksums
+        working-directory: assets
+        run: sha256sum hawl-* > SHA256SUMS
+      - name: Sign the manifest
+        working-directory: assets
+        run: cosign sign-blob --yes --bundle SHA256SUMS.sigstore.json SHA256SUMS
+      - name: Create the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: gh release create "$TAG" assets/* --repo "$GITHUB_REPOSITORY" --title "$TAG" --generate-notes

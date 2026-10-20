@@ -1,0 +1,23 @@
+{
+  "t": "activity",
+  "events": [
+    {
+      "kind": "tool_before",
+      "source": "hook",
+      "ts": "2026-10-10T14:03:11.204Z",
+      "host": "claude_code",
+      "session_id": "s1",
+      "tool": "Edit",
+      "target": "apps/web/x.tsx"
+    },
+    {
+      "kind": "process_exit",
+      "source": "proc",
+      "ts": "2026-10-10T14:03:11.204Z",
+      "pid": 4242,
+      "parent_pid": 4000,
+      "name": "node",
+      "exit_code": null
+    }
+  ]
+}

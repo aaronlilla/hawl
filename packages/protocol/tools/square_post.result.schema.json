@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/square_post.result.schema.json",
+  "title": "square_post result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "message_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+    },
+    "state": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/message_state"
+    },
+    "approval_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_apr"
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 300
+    }
+  },
+  "required": ["message_id", "state"]
+}

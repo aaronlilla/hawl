@@ -1,0 +1,72 @@
+{
+  "flows": [
+    {
+      "name": "happy path to verified",
+      "events": ["offer", "accept", "progress", "done", "verify:pass"],
+      "states": ["asked", "accepted", "accepted", "done", "verified"]
+    },
+    {
+      "name": "decline",
+      "events": ["offer", "decline"],
+      "states": ["asked", "declined"]
+    },
+    {
+      "name": "cancel while asked",
+      "events": ["offer", "cancel"],
+      "states": ["asked", "cancelled"]
+    },
+    {
+      "name": "cancel while accepted",
+      "events": ["offer", "accept", "cancel"],
+      "states": ["asked", "accepted", "cancelled"]
+    },
+    {
+      "name": "expire while asked",
+      "events": ["offer", "expire"],
+      "states": ["asked", "expired"]
+    },
+    {
+      "name": "expire while accepted",
+      "events": ["offer", "accept", "expire"],
+      "states": ["asked", "accepted", "expired"]
+    },
+    {
+      "name": "reassign then new offer",
+      "events": ["offer", "reassign", "offer", "accept"],
+      "states": ["asked", "reassigned", "asked", "accepted"]
+    },
+    {
+      "name": "verify reject returns to accepted",
+      "events": [
+        "offer",
+        "accept",
+        "done",
+        "verify:reject",
+        "done",
+        "verify:pass"
+      ],
+      "states": ["asked", "accepted", "done", "accepted", "done", "verified"]
+    }
+  ],
+  "illegal": [
+    { "name": "accept before offer", "events": ["accept"] },
+    { "name": "done before accept", "events": ["offer", "done"] },
+    {
+      "name": "verify before done",
+      "events": ["offer", "accept", "verify:pass"]
+    },
+    {
+      "name": "event after verified",
+      "events": ["offer", "accept", "done", "verify:pass", "cancel"]
+    },
+    {
+      "name": "event after declined",
+      "events": ["offer", "decline", "accept"]
+    },
+    {
+      "name": "reassign after accept",
+      "events": ["offer", "accept", "reassign"]
+    },
+    { "name": "second offer while asked", "events": ["offer", "offer"] }
+  ]
+}

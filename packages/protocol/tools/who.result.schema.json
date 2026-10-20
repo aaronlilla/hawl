@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/who.result.schema.json",
+  "title": "who result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "workers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "handle": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "resident_id": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+          },
+          "owner_display": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "platform": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/platform"
+          },
+          "status": {
+            "enum": ["idle", "busy", "away", "offline"]
+          },
+          "status_age_s": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "working_on": {
+            "anyOf": [
+              {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/working_on"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "yard": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "can_message": {
+            "type": "boolean"
+          },
+          "specialties": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/specialties"
+          },
+          "knows": {
+            "anyOf": [
+              {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/knows"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "handle",
+          "owner_display",
+          "platform",
+          "status",
+          "status_age_s",
+          "working_on",
+          "yard",
+          "can_message"
+        ]
+      },
+      "maxItems": 500
+    }
+  },
+  "required": ["workers"]
+}

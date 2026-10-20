@@ -1,0 +1,21 @@
+{
+  "payload": {
+    "v": 1,
+    "seq": 42,
+    "not_before": "2026-10-01T00:00:00Z",
+    "not_after": "2026-11-15T00:00:00Z",
+    "keys": [],
+    "revoked": [
+      {
+        "kid": "rk_2026q3",
+        "at": "2026-10-09T12:00:00Z",
+        "reason": "compromise"
+      }
+    ]
+  },
+  "sig": {
+    "alg": "EdDSA",
+    "kid": "root_1",
+    "sig": "c2lnbmF0dXJl"
+  }
+}

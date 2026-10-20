@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/scanner.schema.json",
+  "title": "Message scanner verdict",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verdict": {
+      "enum": ["clean", "flagged", "blocked", "scan_unavailable"]
+    },
+    "complete": {
+      "type": "boolean"
+    },
+    "views": {
+      "type": "array",
+      "items": {
+        "enum": ["original", "normalized", "json_keys"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "detectors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^l[01]\\.[a-z0-9_]+$"
+          },
+          "result": {
+            "enum": ["pass", "flag", "block"]
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": ["id", "result"]
+      },
+      "maxItems": 32
+    },
+    "intent_mismatch": {
+      "type": "boolean"
+    },
+    "scanner_version": {
+      "type": "string",
+      "pattern": "^scan-\\d+\\.\\d+\\.\\d+$"
+    },
+    "policy_version": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "scanned_at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    }
+  },
+  "required": [
+    "verdict",
+    "complete",
+    "views",
+    "detectors",
+    "intent_mismatch",
+    "scanner_version",
+    "policy_version",
+    "scanned_at"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "scan_unavailable"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "complete": {
+            "const": false
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "complete": {
+            "const": true
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "delivered": {
+      "description": "Scan block inside a delivered envelope: complete, and only clean or flagged ever reach a recipient.",
+      "allOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/scanner.schema.json"
+        },
+        {
+          "properties": {
+            "verdict": {
+              "enum": ["clean", "flagged"]
+            },
+            "complete": {
+              "const": true
+            }
+          }
+        }
+      ]
+    },
+    "file_verdict": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "verdict": {
+          "enum": ["clean", "flagged", "blocked", "scan_unavailable"]
+        },
+        "detectors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9_.]{1,48}$"
+              },
+              "result": {
+                "enum": ["pass", "flag", "block"]
+              }
+            },
+            "required": ["id", "result"]
+          },
+          "maxItems": 32
+        },
+        "scanner_version": {
+          "type": "string",
+          "pattern": "^scan-\\d+\\.\\d+\\.\\d+$"
+        },
+        "scanned_at": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        }
+      },
+      "required": ["verdict", "detectors", "scanner_version", "scanned_at"]
+    }
+  }
+}

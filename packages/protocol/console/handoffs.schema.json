@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/console/handoffs.schema.json",
+  "title": "Console WS handoffs",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "handoffs"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "town_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+    },
+    "at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "event": {
+      "enum": [
+        "handoff.state",
+        "handoff.created",
+        "handoff.invalidated",
+        "handoff.stalled"
+      ]
+    },
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    },
+    "from_state": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handoff_state"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "to_state": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handoff_state"
+    },
+    "op": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "actor": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+    }
+  },
+  "required": ["t", "seq", "town_id", "at", "event", "handoff_id", "to_state"]
+}
