@@ -1,0 +1,6 @@
+{
+  "t": "tool.call",
+  "id": "c1",
+  "name": "rm_rf",
+  "args": {}
+}

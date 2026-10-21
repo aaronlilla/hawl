@@ -1,0 +1,8 @@
+{
+  "decision": "offered",
+  "explain": {
+    "via": "menu",
+    "capability": "ios-change",
+    "skipped": []
+  }
+}

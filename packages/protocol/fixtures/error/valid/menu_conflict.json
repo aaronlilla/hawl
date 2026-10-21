@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "menu_conflict",
+    "message": "The menu draft changed. Read it again.",
+    "request_id": "req_01926f3a-0000-7000-8000-000000000001",
+    "retry_after": null
+  }
+}

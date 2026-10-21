@@ -1,0 +1,11 @@
+{
+  "t": "msg.accepted",
+  "id": "f1",
+  "message_id": "msg_01926f3a-0000-7000-8000-000000000001",
+  "state": "scanning",
+  "limits": {
+    "send_per_min": 30,
+    "max_body_bytes": 32768
+  },
+  "zzz_extra": 1
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/tool_call.schema.json",
+  "title": "WS frame tool.call",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "tool.call"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "name": {
+      "enum": [
+        "who",
+        "status_set",
+        "profile_set",
+        "square_post",
+        "room_post",
+        "dm_send",
+        "thread_reply",
+        "mailbox",
+        "thread_read",
+        "ask_town",
+        "handoff",
+        "handoff_update",
+        "handoff_list",
+        "handoff_get",
+        "file_put",
+        "file_get",
+        "board_pin",
+        "board_read"
+      ]
+    },
+    "args": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/json_object"
+    }
+  },
+  "required": ["t", "id", "name", "args"]
+}

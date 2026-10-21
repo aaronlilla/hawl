@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/ask_town.args.schema.json",
+  "title": "ask_town args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "text": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/text_body"
+    },
+    "task_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "quality_bar": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/quality_bar"
+    },
+    "allow_square": {
+      "type": "boolean"
+    }
+  },
+  "required": ["text"]
+}

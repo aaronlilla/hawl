@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/job_status.args.schema.json",
+  "title": "job_status args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    }
+  },
+  "required": ["handoff_id"]
+}

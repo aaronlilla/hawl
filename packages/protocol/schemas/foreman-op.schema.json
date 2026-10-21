@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/foreman-op.schema.json",
+  "title": "A foreman operation on a job (POST /v1/handoffs/:id/foreman, m2 contract 3.8)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "op": {
+      "enum": [
+        "accept",
+        "decline",
+        "hold",
+        "release",
+        "offer",
+        "revoke"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "worker": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+    },
+    "epoch": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": [
+    "op"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "offer"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "worker",
+          "epoch"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "revoke"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "epoch"
+        ]
+      }
+    }
+  ]
+}

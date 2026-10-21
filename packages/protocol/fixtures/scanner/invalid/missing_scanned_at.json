@@ -1,0 +1,26 @@
+{
+  "verdict": "clean",
+  "complete": true,
+  "views": ["original", "normalized", "json_keys"],
+  "detectors": [
+    {
+      "id": "l0.unicode",
+      "result": "pass"
+    },
+    {
+      "id": "l1.secrets",
+      "result": "pass"
+    },
+    {
+      "id": "l1.urls",
+      "result": "pass"
+    },
+    {
+      "id": "l1.intent",
+      "result": "pass"
+    }
+  ],
+  "intent_mismatch": false,
+  "scanner_version": "scan-1.0.0",
+  "policy_version": 7
+}

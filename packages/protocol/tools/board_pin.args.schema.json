@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/board_pin.args.schema.json",
+  "title": "board_pin args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "message_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+    },
+    "title": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/title"
+    }
+  },
+  "required": ["message_id", "title"]
+}

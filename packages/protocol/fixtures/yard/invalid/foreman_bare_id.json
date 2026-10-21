@@ -1,0 +1,28 @@
+{
+  "yard": {
+    "id": "vil_01926f3a-0000-7000-8000-000000000002",
+    "slug": "y-1a2b3c4d",
+    "display_name": "Aaron's yard",
+    "kind": "person"
+  },
+  "station": {
+    "id": "vil_01926f3a-0000-7000-8000-000000000003",
+    "label": "shop-app"
+  },
+  "sites": [
+    {
+      "town_id": "twn_01926f3a-0000-7000-8000-000000000005",
+      "slug": "office",
+      "state": "plugged",
+      "visibility": "summary",
+      "card_fields": [
+        "state",
+        "capability"
+      ],
+      "foreman": "res_01926f3a-0000-7000-8000-000000000004",
+      "menu_revision": 2,
+      "draft_revision": 3,
+      "you_are_foreman": false
+    }
+  ]
+}

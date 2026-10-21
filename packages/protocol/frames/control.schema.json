@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/control.schema.json",
+  "title": "WS frame control",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "control"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "action": {
+      "enum": ["suspend", "rotate_key_required", "reauth", "drain"]
+    }
+  },
+  "required": ["t", "action"]
+}

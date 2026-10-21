@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/line_open.result.schema.json",
+  "title": "line_open result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "line_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_dln"
+    },
+    "state": {
+      "enum": ["open", "requested"]
+    }
+  },
+  "required": ["line_id", "state"]
+}

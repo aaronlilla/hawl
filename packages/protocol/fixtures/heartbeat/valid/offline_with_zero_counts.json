@@ -1,0 +1,14 @@
+{
+  "yard": "qa-yard",
+  "state": "offline",
+  "load": {
+    "active_tasks": 0,
+    "queued": 0
+  },
+  "workers": {
+    "busy": 0,
+    "idle": 0
+  },
+  "needs_human": 0,
+  "as_of": "2026-10-10T18:05:00+00:00"
+}

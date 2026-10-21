@@ -1,0 +1,13 @@
+{
+  "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+  "op": "verify",
+  "evidence": {
+    "sha": "9f2c4e6a8b0d1f3a5c7e9b1d3f5a7c9e1b3d5f70",
+    "criteria": [
+      {
+        "id": "c1",
+        "result": "pass"
+      }
+    ]
+  }
+}

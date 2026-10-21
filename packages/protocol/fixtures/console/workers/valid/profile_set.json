@@ -1,0 +1,10 @@
+{
+  "t": "workers",
+  "seq": 9,
+  "town_id": "twn_01926f3a-0000-7000-8000-000000000001",
+  "at": "2026-10-16T10:00:00.000Z",
+  "event": "worker.profile_set",
+  "resident_id": "res_01926f3a-0000-7000-8000-000000000001",
+  "specialties": ["billing"],
+  "knows": "Billing code."
+}

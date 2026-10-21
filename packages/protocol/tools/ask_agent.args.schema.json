@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/ask_agent.args.schema.json",
+  "title": "ask_agent args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "to": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle"
+    },
+    "text": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/text_body"
+    },
+    "data": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/json_object"
+    },
+    "wait_s": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 120
+    }
+  },
+  "required": ["to", "text"]
+}

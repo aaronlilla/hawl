@@ -1,0 +1,13 @@
+{
+  "yard": "qa-yard",
+  "state": "online",
+  "load": {
+    "active_tasks": 3,
+    "queued": 1
+  },
+  "workers": {
+    "busy": 4,
+    "idle": 2
+  },
+  "needs_human": 0
+}

@@ -1,0 +1,16 @@
+{
+  "yard": "big-yard",
+  "owner": "user_b",
+  "display_name": "Big Yard",
+  "visibility": "full",
+  "capabilities": [
+    {
+      "id": "code-review",
+      "description": "Review a pull request",
+      "accepts_files": ["image/*"]
+    }
+  ],
+  "routing_policy": {
+    "auto_accept": true
+  }
+}

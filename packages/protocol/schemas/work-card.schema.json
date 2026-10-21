@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/work-card.schema.json",
+  "title": "Work card: one line an agent files when it starts new work (never the prompt)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_crd"
+    },
+    "worker": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+    },
+    "site": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+    },
+    "capability": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/capability"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "repo": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[^\\s]+$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "state": {
+      "enum": ["working", "paused", "done", "dropped"]
+    },
+    "handoff_id": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "started_at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "updated_at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "ended_at": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "worker",
+    "site",
+    "title",
+    "capability",
+    "repo",
+    "state",
+    "handoff_id",
+    "started_at",
+    "updated_at",
+    "ended_at"
+  ]
+}

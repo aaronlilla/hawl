@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "stale_sha",
+    "message": "That SHA is no longer the job's head.",
+    "request_id": "req_01926f3a-0000-7000-8000-000000000001",
+    "retry_after": null
+  }
+}

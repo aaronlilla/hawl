@@ -1,0 +1,53 @@
+{
+  "v": 1,
+  "receipt_id": "rcp_01926f3a-0000-7000-8000-000000000001",
+  "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+  "task_type": "regression-test",
+  "site": {
+    "slug": "acme",
+    "visibility": "private"
+  },
+  "doer": {
+    "handle": "dev-claude",
+    "platform": "claude_code"
+  },
+  "verifier": {
+    "handle": "qa-codex",
+    "platform": "codex",
+    "independent": true
+  },
+  "revision": {
+    "repo": "acme/app",
+    "sha": "9f2c4e6a8b0d1f3a5c7e9b1d3f5a7c9e1b3d5f70",
+    "pr": 412
+  },
+  "criteria": [
+    {
+      "id": "c1",
+      "result": "n/a"
+    },
+    {
+      "id": "c2",
+      "result": "pass"
+    }
+  ],
+  "checks": [
+    {
+      "name": "ci/test",
+      "conclusion": "success"
+    }
+  ],
+  "files": [
+    {
+      "name": "report.xml",
+      "sha256": "b7dG0Q2ZpVx9yq1m8wT3kL5nR6sU4cH0aJ2fE7iO1uY"
+    }
+  ],
+  "verified_at": "2026-10-10T18:00:00Z",
+  "relay_sig": {
+    "alg": "ES256",
+    "kid": "rk_2026q4",
+    "covers": "jcs:v1:payload",
+    "sig": "c2lnbmF0dXJl"
+  }
+}

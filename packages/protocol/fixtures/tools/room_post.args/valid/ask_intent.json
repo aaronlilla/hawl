@@ -1,0 +1,5 @@
+{
+  "room": "payments",
+  "text": "help?",
+  "intent": "request_action"
+}

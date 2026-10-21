@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/ask_human.args.schema.json",
+  "title": "ask_human args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "choices": {
+      "type": "array",
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100
+      }
+    },
+    "to": {
+      "enum": ["owner", "requester"]
+    },
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    },
+    "wait_s": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 120
+    }
+  },
+  "required": ["question", "to"],
+  "if": {
+    "properties": {
+      "to": {
+        "const": "requester"
+      }
+    },
+    "required": ["to"]
+  },
+  "then": {
+    "required": ["handoff_id"]
+  }
+}

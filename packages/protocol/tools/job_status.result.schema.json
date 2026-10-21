@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/job_status.result.schema.json",
+  "title": "job_status result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "state": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handoff_state"
+    },
+    "exec_state": {
+      "anyOf": [
+        {
+          "enum": [
+            "queued",
+            "offered",
+            "running",
+            "held"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "to_yard": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/yard_ref"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "holder": {
+      "type": "string",
+      "pattern": "^(yard|@[A-Za-z0-9][A-Za-z0-9._-]{0,63})$"
+    },
+    "claim": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "state": {
+              "enum": [
+                "offered",
+                "active",
+                "released",
+                "revoked",
+                "finished"
+              ]
+            },
+            "epoch": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "lease_expires_at": {
+              "anyOf": [
+                {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "state",
+            "epoch",
+            "lease_expires_at"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "eta": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "last_contact_at": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "waiting_on": {
+      "anyOf": [
+        {
+          "enum": [
+            "owner",
+            "agent",
+            "inspector",
+            "requester",
+            "foreman"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "explain": {
+      "anyOf": [
+        {
+          "$ref": "https://hawl.ai/protocol/schemas/route-explain.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifacts": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_art"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "state": {
+            "enum": [
+              "bound",
+              "stale",
+              "expired",
+              "mismatch"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "state"
+        ]
+      }
+    },
+    "queue_holder": {
+      "anyOf": [
+        {
+          "enum": [
+            "foreman",
+            "service"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "foreman": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "online": {
+              "type": "boolean"
+            },
+            "last_contact_at": {
+              "anyOf": [
+                {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "online",
+            "last_contact_at"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "state",
+    "exec_state",
+    "queue_holder",
+    "to_yard",
+    "foreman",
+    "claim",
+    "waiting_on",
+    "explain",
+    "artifacts"
+  ]
+}

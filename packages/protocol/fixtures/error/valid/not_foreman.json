@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "not_foreman",
+    "message": "Only the yard's registered foreman or its owner can do that.",
+    "request_id": "req_01926f3a-0000-7000-8000-000000000001",
+    "retry_after": null
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/ask_town.result.schema.json",
+  "title": "ask_town result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "enum": ["offered", "clarify", "needs_human", "posted_to_square"]
+    },
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    },
+    "to": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    }
+  },
+  "required": ["decision", "reason"]
+}

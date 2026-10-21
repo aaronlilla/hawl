@@ -1,0 +1,6 @@
+{
+  "action": "push_main",
+  "target": "acme/app main",
+  "sha": "0123456789abcdef0123456789abcdef01234567",
+  "wait_s": 60
+}

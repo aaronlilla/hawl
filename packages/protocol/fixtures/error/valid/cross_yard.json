@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "cross_yard",
+    "message": "Open a job instead (job_open).",
+    "request_id": "req_01926f3a-0000-7000-8000-000000000001",
+    "retry_after": null
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "question": "Ship to TestFlight today?",
+  "to": "owner",
+  "choices": ["yes", "no"],
+  "wait_s": 120
+}

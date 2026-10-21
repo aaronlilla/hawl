@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/queue-entry.schema.json",
+  "title": "A job the answering service holds for a yard's foreman (GET .../queue entries; Workstation QueueEntry, m2 contract 3.7)",
+  "description": "offer is the gateway-contract offer lifecycle event (packages/gateway-contract/schemas/lifecycle.schema.json, definitions.offer). Times are epoch milliseconds.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "offer",
+    "requester",
+    "acceptedAt"
+  ],
+  "properties": {
+    "offer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "yard",
+        "task_id",
+        "event",
+        "at"
+      ],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "const": "offer"
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "capability": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "acceptance": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "quality_bar": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "requester": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "acceptedAt": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "preferAgent": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "ownerNotified": {
+      "type": "boolean"
+    },
+    "held": {
+      "type": "boolean"
+    },
+    "receivedAt": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

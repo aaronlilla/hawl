@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/menu_set.result.schema.json",
+  "title": "menu_set result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "draft_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "publish_url": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/http_url"
+    }
+  },
+  "required": ["draft_revision", "publish_url"]
+}

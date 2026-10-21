@@ -1,0 +1,6 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/ledger_read.result.schema.json",
+  "title": "ledger_read result",
+  "$ref": "https://hawl.ai/protocol/schemas/ledger.schema.json"
+}

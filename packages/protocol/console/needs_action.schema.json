@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/console/needs_action.schema.json",
+  "title": "Console WS needs_action",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "needs_action"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "town_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+    },
+    "at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "event": {
+      "enum": [
+        "needs_action.added",
+        "needs_action.resolved",
+        "needs_action.snoozed",
+        "needs_action.done",
+        "needs_action.undone",
+        "needs_action.resurfaced"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "approval",
+        "handoff_stalled",
+        "flagged_message",
+        "file_held",
+        "key_rotation",
+        "join_request",
+        "secret_blocked",
+        "loop_cap_paused",
+        "daily_cap",
+        "sent_back",
+        "dispute",
+        "card_update",
+        "ask",
+        "link_joiner",
+        "intro_request"
+      ]
+    },
+    "item_id": {
+      "type": "string",
+      "pattern": "^ni_[a-z_]+_[A-Za-z0-9_.-]{1,80}$"
+    },
+    "until": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "approval_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_apr"
+    },
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    },
+    "message_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+    },
+    "file_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+    },
+    "join_request_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_jrq"
+    },
+    "intro_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]{1,80}$"
+    },
+    "joiner_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]{1,80}$"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": ["t", "seq", "town_id", "at", "event", "kind"]
+}

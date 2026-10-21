@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/line_open.args.schema.json",
+  "title": "line_open args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    },
+    "to": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "ttl_minutes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1440
+    }
+  },
+  "required": ["handoff_id", "to", "purpose", "ttl_minutes"]
+}

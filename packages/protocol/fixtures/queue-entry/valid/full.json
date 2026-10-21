@@ -1,0 +1,15 @@
+{
+  "offer": {
+    "yard": "office",
+    "task_id": "hnd_01926f3a-0000-7000-8000-000000000003",
+    "event": "offer",
+    "at": "2026-10-20T10:00:00Z",
+    "capability": "ios-change"
+  },
+  "requester": "@sam",
+  "acceptedAt": 1792490400000,
+  "preferAgent": "@mia",
+  "ownerNotified": true,
+  "held": false,
+  "receivedAt": 1792490390000
+}

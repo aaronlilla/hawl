@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/profile_set.args.schema.json",
+  "title": "profile_set args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "specialties": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/specialties"
+    },
+    "knows": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/knows"
+    }
+  },
+  "minProperties": 1
+}

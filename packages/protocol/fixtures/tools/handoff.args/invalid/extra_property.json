@@ -1,0 +1,13 @@
+{
+  "task_type": "regression-test",
+  "title": "Add regression test",
+  "spec": "Cover /v2/orders",
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "test fails before fix",
+      "check": "ci"
+    }
+  ],
+  "zzz_extra": 1
+}

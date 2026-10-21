@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/artifact_get.args.schema.json",
+  "title": "artifact_get args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    },
+    "artifact_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_art"
+    },
+    "save_to": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    }
+  },
+  "required": ["handoff_id", "artifact_id"]
+}

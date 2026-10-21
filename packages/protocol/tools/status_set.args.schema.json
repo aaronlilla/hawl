@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/status_set.args.schema.json",
+  "title": "status_set args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "state": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/presence_state"
+    },
+    "working_on": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/working_on"
+    },
+    "watching": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/watching"
+    }
+  },
+  "required": ["state"]
+}

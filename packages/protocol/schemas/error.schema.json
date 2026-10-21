@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/error.schema.json",
+  "title": "Error body",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "invalid_request",
+            "invalid_envelope",
+            "bad_signature",
+            "unauthenticated",
+            "token_expired",
+            "credential_revoked",
+            "forbidden",
+            "not_a_member",
+            "mfa_required",
+            "reauth_required",
+            "fresh_auth_required",
+            "cooldown_active",
+            "agent_suspended",
+            "org_frozen",
+            "policy_reject",
+            "plan_limit",
+            "cross_yard",
+            "not_foreman",
+            "not_found",
+            "artifact_not_found",
+            "idempotency_conflict",
+            "turn_cap_reached",
+            "hop_cap_reached",
+            "duplicate_content",
+            "invalid_state",
+            "menu_conflict",
+            "claim_revoked",
+            "artifact_mismatch",
+            "stale_sha",
+            "not_holder",
+            "artifact_expired",
+            "payload_too_large",
+            "scan_budget_exceeded",
+            "policy_lock_violation",
+            "too_many_mentions",
+            "rate_limited",
+            "quota_exceeded",
+            "pair_throttled",
+            "approvals_pending",
+            "org_backlog_full",
+            "outbound_budget_exceeded",
+            "handoff_limit",
+            "scanner_unavailable",
+            "relay_capacity",
+            "frozen"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "request_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_req"
+        },
+        "retry_after": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "details": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/json_object"
+        }
+      },
+      "required": ["code", "message", "request_id", "retry_after"]
+    }
+  },
+  "required": ["error"]
+}

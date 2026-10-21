@@ -1,0 +1,10 @@
+{
+  "t": "msg.send",
+  "client_request": "eyJ2IjoxfQ",
+  "sender_sig": {
+    "alg": "EdDSA",
+    "kid": "key_K7D2TEST",
+    "covers": "client_request",
+    "sig": "c2lnbmF0dXJl"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+  "op": "verify",
+  "evidence": {
+    "sha": "0123456789abcdef0123456789abcdef01234567",
+    "device": {
+      "platform": "ios",
+      "os": "19.0",
+      "model": "iPhone 15",
+      "suite": "login",
+      "result": "pass"
+    }
+  }
+}

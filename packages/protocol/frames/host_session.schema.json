@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/host_session.schema.json",
+  "title": "WS frame host_session",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "host_session"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "host_session_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    }
+  },
+  "required": ["t", "host_session_id"]
+}

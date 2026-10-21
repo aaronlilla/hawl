@@ -1,0 +1,8 @@
+{
+  "yard": "x",
+  "owner": "u",
+  "display_name": "X",
+  "visibility": "summary",
+  "capabilities": [],
+  "inner_agents": ["a"]
+}

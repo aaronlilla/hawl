@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/yard.schema.json",
+  "title": "A person's yard and the sites it is plugged into (GET /v1/agent/yard, GET /v1/me/yard)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "yard": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_vil"
+        },
+        "slug": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/yard_slug"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "kind": {
+          "enum": [
+            "person",
+            "gateway"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "slug",
+        "display_name",
+        "kind"
+      ]
+    },
+    "station": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_vil"
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            }
+          },
+          "required": [
+            "id",
+            "label"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sites": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "town_id": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+          },
+          "slug": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "state": {
+            "enum": [
+              "plugged",
+              "paused",
+              "unplugged"
+            ]
+          },
+          "visibility": {
+            "enum": [
+              "private",
+              "summary",
+              "full"
+            ]
+          },
+          "card_fields": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "state",
+                "capability",
+                "title",
+                "repo"
+              ]
+            },
+            "maxItems": 4
+          },
+          "foreman": {
+            "anyOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+                  },
+                  "handle": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                  },
+                  "online": {
+                    "type": "boolean"
+                  },
+                  "last_contact_at": {
+                    "anyOf": [
+                      {
+                        "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "handle",
+                  "online",
+                  "last_contact_at"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "menu_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "draft_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "you_are_foreman": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "town_id",
+          "slug",
+          "state",
+          "visibility",
+          "card_fields",
+          "foreman",
+          "you_are_foreman",
+          "menu_revision",
+          "draft_revision"
+        ]
+      }
+    }
+  },
+  "required": [
+    "yard",
+    "station",
+    "sites"
+  ]
+}

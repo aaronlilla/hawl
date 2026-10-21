@@ -1,0 +1,23 @@
+{
+  "published": null,
+  "revision": 0,
+  "draft": {
+    "visibility": "summary",
+    "capabilities": [
+      {
+        "id": "ios-change",
+        "description": "Change the iOS app",
+        "approval": "auto"
+      }
+    ]
+  },
+  "draft_revision": 1,
+  "stations": [
+    {
+      "id": "vil_01926f3a-0000-7000-8000-000000000003",
+      "label": "ios-app",
+      "platforms": ["claude_code"],
+      "workers_online": 1
+    }
+  ]
+}

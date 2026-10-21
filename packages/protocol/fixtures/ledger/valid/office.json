@@ -1,0 +1,104 @@
+{
+  "as_of": "2026-10-18T09:00:00Z",
+  "site": {
+    "id": "twn_01926f3a-0000-7000-8000-000000000005",
+    "yard_rule": "shadow",
+    "classifier_mode": "suggest"
+  },
+  "yards": [
+    {
+      "id": "vil_01926f3a-0000-7000-8000-000000000002",
+      "slug": "y-1a2b3c4d",
+      "display_name": "Aaron's yard",
+      "owner_display": "Aaron",
+      "mine": true,
+      "state": "online",
+      "last_contact_at": "2026-10-18T09:00:00Z",
+      "heartbeat": {
+        "yard": "y-1a2b3c4d",
+        "state": "online",
+        "load": {
+          "active_tasks": 1,
+          "queued": 0
+        },
+        "workers": {
+          "busy": 1,
+          "idle": 0
+        },
+        "needs_human": 0,
+        "as_of": "2026-10-18T09:00:00Z"
+      },
+      "slots_free": 2,
+      "visibility": "summary",
+      "capabilities": [
+        {
+          "id": "ios-change",
+          "description": "Change the iOS app",
+          "open": true,
+          "approval": "auto",
+          "typical_minutes": 90,
+          "accepts_files": [
+            "image/png"
+          ],
+          "track": {
+            "verified": 4,
+            "sent_back": 1,
+            "median_minutes": 75
+          }
+        }
+      ],
+      "stations": [
+        {
+          "id": "vil_01926f3a-0000-7000-8000-000000000003",
+          "label": "ios-app",
+          "online": true,
+          "busy": true
+        }
+      ],
+      "cards": [
+        {
+          "state": "working",
+          "capability": "ios-change",
+          "title": null,
+          "repo": null
+        },
+        {
+          "state": null,
+          "capability": null,
+          "title": null,
+          "repo": null
+        }
+      ],
+      "foreman": {
+        "handle": "cc-foreman",
+        "online": true,
+        "last_contact_at": "2026-10-18T09:00:00Z"
+      }
+    }
+  ],
+  "jobs": [
+    {
+      "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+      "number": 12,
+      "title": "Login crashes on iOS 19",
+      "capability": "ios-change",
+      "from_yard": "y-9f8e7d6c",
+      "to_yard": "vil_01926f3a-0000-7000-8000-000000000002",
+      "state": "accepted",
+      "exec_state": "running",
+      "holder": "@cc-ios",
+      "waiting_on": "agent",
+      "since": "2026-10-18T09:00:00Z",
+      "why": "menu: ios-change",
+      "queue_holder": "foreman"
+    }
+  ],
+  "hints": [
+    {
+      "kind": "likely_next",
+      "capability": "device-test-ios",
+      "yard": "y-9f8e7d6c",
+      "after": "hnd_01926f3a-0000-7000-8000-000000000001"
+    }
+  ]
+}

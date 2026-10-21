@@ -1,0 +1,530 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/ledger.schema.json",
+  "title": "Site ledger: plugged yards, their menus and load, every job in flight (m2 contract 3.6)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+        },
+        "yard_rule": {
+          "enum": [
+            "off",
+            "shadow",
+            "enforced"
+          ]
+        },
+        "classifier_mode": {
+          "enum": [
+            "off",
+            "suggest",
+            "route"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "yard_rule",
+        "classifier_mode"
+      ]
+    },
+    "yards": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_vil"
+          },
+          "slug": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/yard_slug"
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "owner_display": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "mine": {
+            "type": "boolean"
+          },
+          "state": {
+            "enum": [
+              "online",
+              "busy",
+              "paused",
+              "offline"
+            ]
+          },
+          "last_contact_at": {
+            "anyOf": [
+              {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "heartbeat": {
+            "anyOf": [
+              {
+                "$ref": "https://hawl.ai/protocol/schemas/heartbeat.schema.json"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "slots_free": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 50
+          },
+          "visibility": {
+            "enum": [
+              "private",
+              "summary",
+              "full"
+            ]
+          },
+          "capabilities": {
+            "type": "array",
+            "maxItems": 64,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/capability"
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 280
+                },
+                "open": {
+                  "type": "boolean"
+                },
+                "approval": {
+                  "enum": [
+                    "auto",
+                    "ask_owner"
+                  ]
+                },
+                "typical_minutes": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10080
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "accepts_files": {
+                  "type": "array",
+                  "maxItems": 32,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 127
+                  }
+                },
+                "track": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "verified": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "sent_back": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "median_minutes": {
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "verified",
+                    "sent_back",
+                    "median_minutes"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "description",
+                "open",
+                "approval",
+                "typical_minutes",
+                "accepts_files",
+                "track"
+              ]
+            }
+          },
+          "stations": {
+            "type": "array",
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_vil"
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                },
+                "online": {
+                  "type": "boolean"
+                },
+                "busy": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "label",
+                "online",
+                "busy"
+              ]
+            }
+          },
+          "cards": {
+            "type": "array",
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "state": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "working",
+                        "paused",
+                        "done",
+                        "dropped"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "capability": {
+                  "anyOf": [
+                    {
+                      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/capability"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 80,
+                      "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "repo": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[^\\s]+$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "state",
+                "capability",
+                "title",
+                "repo"
+              ]
+            }
+          },
+          "foreman": {
+            "anyOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                  },
+                  "online": {
+                    "type": "boolean"
+                  },
+                  "last_contact_at": {
+                    "anyOf": [
+                      {
+                        "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "handle",
+                  "online",
+                  "last_contact_at"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "display_name",
+          "owner_display",
+          "mine",
+          "state",
+          "last_contact_at",
+          "foreman",
+          "heartbeat",
+          "slots_free",
+          "visibility",
+          "capabilities",
+          "cards"
+        ]
+      }
+    },
+    "jobs": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "handoff_id": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+          },
+          "number": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "anyOf": [
+              {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/title"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "capability": {
+            "anyOf": [
+              {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/capability"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "from_yard": {
+            "anyOf": [
+              {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/yard_ref"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "to_yard": {
+            "anyOf": [
+              {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/yard_ref"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "state": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handoff_state"
+          },
+          "exec_state": {
+            "anyOf": [
+              {
+                "enum": [
+                  "queued",
+                  "offered",
+                  "running",
+                  "held"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "holder": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(yard|@[A-Za-z0-9][A-Za-z0-9._-]{0,63})$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "waiting_on": {
+            "anyOf": [
+              {
+                "enum": [
+                  "owner",
+                  "agent",
+                  "inspector",
+                  "requester",
+                  "foreman"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "since": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+          },
+          "why": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "queue_holder": {
+            "anyOf": [
+              {
+                "enum": [
+                  "foreman",
+                  "service"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "handoff_id",
+          "number",
+          "title",
+          "capability",
+          "from_yard",
+          "to_yard",
+          "state",
+          "exec_state",
+          "queue_holder",
+          "holder",
+          "waiting_on",
+          "since",
+          "why"
+        ]
+      }
+    },
+    "hints": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "const": "likely_next"
+          },
+          "capability": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/capability"
+          },
+          "yard": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/yard_ref"
+          },
+          "after": {
+            "anyOf": [
+              {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+              },
+              {
+                "const": "card"
+              }
+            ]
+          }
+        },
+        "required": [
+          "kind",
+          "capability",
+          "yard",
+          "after"
+        ]
+      }
+    }
+  },
+  "required": [
+    "as_of",
+    "site",
+    "yards",
+    "jobs",
+    "hints"
+  ]
+}

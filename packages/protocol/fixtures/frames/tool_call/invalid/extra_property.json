@@ -1,0 +1,7 @@
+{
+  "t": "tool.call",
+  "id": "c1",
+  "name": "who",
+  "args": {},
+  "zzz_extra": 1
+}

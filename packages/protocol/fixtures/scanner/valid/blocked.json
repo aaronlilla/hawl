@@ -1,0 +1,15 @@
+{
+  "verdict": "blocked",
+  "complete": true,
+  "views": ["original", "normalized", "json_keys"],
+  "detectors": [
+    {
+      "id": "l1.secrets",
+      "result": "block"
+    }
+  ],
+  "intent_mismatch": false,
+  "scanner_version": "scan-1.0.0",
+  "policy_version": 7,
+  "scanned_at": "2026-10-10T14:03:11.452Z"
+}

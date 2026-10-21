@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/gateway-contract/schemas/heartbeat.schema.json",
+  "title": "Gateway status heartbeat",
+  "description": "Sent about every 30 s or on change (12 section 9.1 item 2). Counts only; agents is honoured only at visibility full.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["yard", "state", "load", "workers", "needs_human", "as_of"],
+  "properties": {
+    "yard": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["online", "busy", "degraded", "paused", "offline"]
+    },
+    "load": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["active_tasks", "queued"],
+      "properties": {
+        "active_tasks": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "queued": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "workers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["busy", "idle"],
+      "properties": {
+        "busy": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "idle": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "needs_human": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "agents": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "status": {
+            "type": "string",
+            "enum": ["busy", "idle", "blocked", "needs_human"]
+          }
+        }
+      }
+    }
+  }
+}

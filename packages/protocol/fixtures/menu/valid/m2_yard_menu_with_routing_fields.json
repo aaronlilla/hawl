@@ -1,0 +1,33 @@
+{
+  "yard": "y-1a2b3c4d",
+  "owner": "usr_aaron",
+  "display_name": "Aaron's yard",
+  "visibility": "summary",
+  "capabilities": [
+    {
+      "id": "ios-change",
+      "description": "Change the iOS app",
+      "keywords": ["ios", "iphone", "swift"],
+      "stations": ["vil_01926f3a-0000-7000-8000-000000000002"],
+      "approval": "auto",
+      "accept_from": ["site", "y-9f8e7d6c"],
+      "accept_when_offline": true,
+      "open": true,
+      "typical_minutes": 90,
+      "accepts_files": ["image/png"],
+      "next": ["device-test-ios"]
+    },
+    {
+      "id": "code-review",
+      "description": "Review a pull request",
+      "approval": "ask_owner",
+      "open": false
+    }
+  ],
+  "hold_minutes": 240,
+  "release_minutes": 1440,
+  "direct_lines": "job_parties",
+  "routing_policy": {
+    "auto_accept": true
+  }
+}

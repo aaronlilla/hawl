@@ -1,0 +1,10 @@
+{
+  "yard": "x",
+  "owner": "u",
+  "display_name": "X",
+  "visibility": "summary",
+  "capabilities": [],
+  "routing_policy": {
+    "daily_budget_usd": -1
+  }
+}

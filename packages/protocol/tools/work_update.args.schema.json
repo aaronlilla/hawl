@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/work_update.args.schema.json",
+  "title": "work_update args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "card_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_crd"
+    },
+    "state": {
+      "enum": ["working", "paused", "done", "dropped"]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+    }
+  },
+  "required": ["card_id", "state"]
+}
