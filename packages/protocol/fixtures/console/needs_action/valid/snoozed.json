@@ -1,0 +1,10 @@
+{
+  "t": "needs_action",
+  "seq": 11,
+  "town_id": "twn_01926f3a-0000-7000-8000-000000000001",
+  "at": "2026-10-10T14:03:11.452Z",
+  "event": "needs_action.snoozed",
+  "kind": "daily_cap",
+  "item_id": "ni_daily_cap_42",
+  "until": "2026-10-10T15:03:11.452Z"
+}

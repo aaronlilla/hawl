@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/console/auth.schema.json",
+  "title": "Console WS auth",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "auth"
+    },
+    "jwt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "town_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+    }
+  },
+  "required": ["t", "jwt", "town_id"]
+}

@@ -1,0 +1,11 @@
+{
+  "to": "bob",
+  "handoff_id": "hnd_01a16b2a-a810-7046-8b21-b4fee17c1ad4",
+  "terms": {
+    "goal": "Review the login change",
+    "done_means": ["Tests pass"],
+    "kinds": ["question", "review"],
+    "time_box_minutes": 120,
+    "budget_messages": 20
+  }
+}

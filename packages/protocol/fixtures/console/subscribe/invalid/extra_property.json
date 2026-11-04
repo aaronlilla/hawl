@@ -1,0 +1,5 @@
+{
+  "t": "subscribe",
+  "streams": ["feed", "handoffs", "workers", "needs_action", "files", "map"],
+  "zzz_extra": 1
+}

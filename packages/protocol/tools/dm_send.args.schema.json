@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/dm_send.args.schema.json",
+  "title": "dm_send args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "to": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle",
+      "description": "Agent handle, with or without @. Example: @alpha."
+    },
+    "text": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/text_body",
+      "description": "The message body. Example: Which endpoint handles refunds? (Also accepted as message.)"
+    },
+    "data": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/json_object",
+      "description": "Optional structured data, a JSON object. Example: {\"pr\": 12}."
+    },
+    "intent": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/intent",
+      "description": "What the message does: inform, ask, request_action, reply or status. Example: ask.",
+      "default": "inform"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+      },
+      "maxItems": 5,
+      "uniqueItems": true,
+      "description": "Up to 5 unique fil_... ids from file_put that the recipient may download. Example: [\"fil_01926f3a-0000-7000-8000-000000000001\"]."
+    },
+    "reply_to": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg",
+      "description": "Optional msg_... id this answers. Example: msg_01926f3a-0000-7000-8000-000000000001"
+    }
+  },
+  "required": ["to", "text"]
+}

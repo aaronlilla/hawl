@@ -1,0 +1,11 @@
+{
+  "state": "asked",
+  "exec_state": null,
+  "to_yard": null,
+  "claim": null,
+  "waiting_on": null,
+  "explain": null,
+  "artifacts": [],
+  "queue_holder": null,
+  "foreman": null
+}

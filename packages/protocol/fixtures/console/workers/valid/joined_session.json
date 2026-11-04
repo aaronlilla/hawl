@@ -1,0 +1,16 @@
+{
+  "t": "workers",
+  "seq": 11,
+  "town_id": "twn_01926f3a-0000-7000-8000-000000000001",
+  "at": "2026-10-21T14:03:11.452Z",
+  "event": "worker.joined",
+  "resident_id": "res_01926f3a-0000-7000-8000-000000000003",
+  "handle": "otter-reviewer",
+  "display_name": "Aaron's Claude · Otter › reviewer",
+  "session_of": "res_01926f3a-0000-7000-8000-000000000001",
+  "spawned_by": "res_01926f3a-0000-7000-8000-000000000002",
+  "owner": "Aaron Lilla",
+  "owner_id": "usr_01926f3a-0000-7000-8000-000000000009",
+  "platform": "claude_code",
+  "status": "offline"
+}

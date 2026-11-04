@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/file_get.args.schema.json",
+  "title": "file_get args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "file_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil",
+      "description": "The fil_... id from a message or handoff_get. Example: fil_01926f3a-0000-7000-8000-000000000001"
+    },
+    "save_to": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "description": "Optional file or folder path to save to. Example: downloads/out.txt."
+    }
+  },
+  "required": ["file_id"]
+}

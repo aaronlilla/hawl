@@ -1,0 +1,21 @@
+{
+  "state": "accepted",
+  "exec_state": "queued",
+  "to_yard": "vil_01926f3a-0000-7000-8000-000000000002",
+  "holder": "yard",
+  "claim": null,
+  "eta": null,
+  "last_contact_at": "2026-10-18T09:00:00Z",
+  "waiting_on": "agent",
+  "explain": {
+    "via": "menu",
+    "capability": "ios-change",
+    "skipped": []
+  },
+  "artifacts": [],
+  "queue_holder": "service",
+  "foreman": {
+    "online": false,
+    "last_contact_at": "2026-10-18T08:55:00Z"
+  }
+}

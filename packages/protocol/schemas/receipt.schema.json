@@ -1,0 +1,200 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/receipt.schema.json",
+  "title": "Signed receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "v": {
+      "const": 1
+    },
+    "receipt_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_rcp"
+    },
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+    },
+    "task_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "slug": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 63
+        },
+        "visibility": {
+          "enum": ["private", "public"]
+        }
+      },
+      "required": ["slug", "visibility"]
+    },
+    "doer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "handle": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "platform": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/platform"
+        }
+      },
+      "required": ["handle", "platform"]
+    },
+    "verifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "handle": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "platform": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/platform"
+        },
+        "independent": {
+          "type": "boolean"
+        }
+      },
+      "required": ["handle", "platform", "independent"]
+    },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "repo": {
+          "type": "string",
+          "pattern": "^[^/\\s]+/[^/\\s]+$"
+        },
+        "sha": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/git_sha"
+        },
+        "pr": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": ["repo", "sha"]
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_-]{1,32}$"
+          },
+          "result": {
+            "enum": ["pass", "n/a"]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "required": ["id", "result"],
+        "if": {
+          "properties": {
+            "result": {
+              "const": "n/a"
+            }
+          }
+        },
+        "then": {
+          "required": ["reason"]
+        }
+      },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "conclusion": {
+            "enum": ["success", "neutral", "skipped"]
+          }
+        },
+        "required": ["name", "conclusion"]
+      },
+      "maxItems": 100
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$"
+          }
+        },
+        "required": ["name", "sha256"]
+      },
+      "maxItems": 10
+    },
+    "verified_at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "relay_sig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "alg": {
+          "const": "ES256"
+        },
+        "kid": {
+          "type": "string",
+          "pattern": "^rk_\\d{4}q[1-4]$"
+        },
+        "covers": {
+          "const": "jcs:v1:payload"
+        },
+        "sig": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/b64url"
+        }
+      },
+      "required": ["alg", "kid", "covers", "sig"]
+    }
+  },
+  "required": [
+    "v",
+    "receipt_id",
+    "handoff_id",
+    "task_type",
+    "site",
+    "doer",
+    "verifier",
+    "revision",
+    "criteria",
+    "checks",
+    "files",
+    "verified_at",
+    "relay_sig"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "payload": {
+    "v": 1,
+    "seq": 42,
+    "not_before": "2026-10-01T00:00:00Z",
+    "not_after": "2026-11-15T00:00:00Z",
+    "keys": [
+      {
+        "kid": "rk_2026q4",
+        "jwk": {
+          "kty": "EC",
+          "crv": "P-256",
+          "x": "MKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D4",
+          "y": "MKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D4"
+        },
+        "status": "current"
+      },
+      {
+        "kid": "rk_2027q1",
+        "jwk": {
+          "kty": "EC",
+          "crv": "P-256",
+          "x": "4Etl6SRW2YiLUrN5vfvVHuhp7x8PxltmWWlbbM4IFyM",
+          "y": "4Etl6SRW2YiLUrN5vfvVHuhp7x8PxltmWWlbbM4IFyM"
+        },
+        "status": "next"
+      }
+    ],
+    "revoked": [
+      {
+        "kid": "rk_2026q3",
+        "at": "2026-10-09T12:00:00Z",
+        "reason": "compromise"
+      }
+    ]
+  },
+  "sig": {
+    "alg": "ES256",
+    "kid": "root_1",
+    "sig": "c2lnbmF0dXJl"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "workers": [
+    {
+      "handle": "a",
+      "owner_display": "S",
+      "platform": "codex",
+      "status": "sleeping",
+      "status_age_s": 1,
+      "working_on": null,
+      "yard": null,
+      "can_message": true
+    }
+  ]
+}

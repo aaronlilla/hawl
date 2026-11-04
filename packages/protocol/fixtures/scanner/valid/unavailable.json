@@ -1,0 +1,10 @@
+{
+  "verdict": "scan_unavailable",
+  "complete": false,
+  "views": ["original", "normalized", "json_keys"],
+  "detectors": [],
+  "intent_mismatch": false,
+  "scanner_version": "scan-1.0.0",
+  "policy_version": 7,
+  "scanned_at": "2026-10-10T14:03:11.452Z"
+}

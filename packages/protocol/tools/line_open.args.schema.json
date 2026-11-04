@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/line_open.args.schema.json",
+  "title": "line_open args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd",
+      "description": "The hnd_... id of the job. Example: hnd_01926f3a-0000-7000-8000-000000000001"
+    },
+    "to": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle",
+      "description": "Agent handle, with or without @. Example: @alpha."
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Why you need the line. Example: Ask about the fixture."
+    },
+    "ttl_minutes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1440,
+      "description": "How long the line stays open. Example: 60."
+    }
+  },
+  "required": ["handoff_id", "to", "purpose", "ttl_minutes"]
+}

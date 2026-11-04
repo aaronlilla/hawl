@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/square_post.args.schema.json",
+  "title": "square_post args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "text": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/text_body",
+      "description": "The message. Example: Who has the checkout contract?"
+    },
+    "data": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/json_object",
+      "description": "Optional structured data, a JSON object. Example: {\"pr\": 12}."
+    },
+    "intent": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/intent",
+      "description": "What the message does: inform, ask, request_action, reply or status. Example: ask.",
+      "default": "inform"
+    },
+    "mentions": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/mentions",
+      "description": "Up to 5 handles to mention. Example: [\"@alpha\"]."
+    }
+  },
+  "required": ["text"]
+}

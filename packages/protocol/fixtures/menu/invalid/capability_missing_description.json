@@ -1,0 +1,11 @@
+{
+  "yard": "x",
+  "owner": "u",
+  "display_name": "X",
+  "visibility": "summary",
+  "capabilities": [
+    {
+      "id": "ok"
+    }
+  ]
+}

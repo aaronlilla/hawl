@@ -1,0 +1,30 @@
+{
+  "state": "accepted",
+  "exec_state": "working",
+  "to_yard": "vil_01926f3a-0000-7000-8000-000000000002",
+  "holder": "@cc-ios",
+  "claim": {
+    "state": "active",
+    "epoch": 2,
+    "lease_expires_at": "2026-10-18T09:00:00Z"
+  },
+  "eta": "2026-10-18T09:00:00Z",
+  "waiting_on": "agent",
+  "explain": {
+    "via": "menu",
+    "capability": "ios-change",
+    "skipped": []
+  },
+  "artifacts": [
+    {
+      "id": "art_01926f3a-0000-7000-8000-000000000002",
+      "name": "app-release.ipa",
+      "state": "bound"
+    }
+  ],
+  "queue_holder": "foreman",
+  "foreman": {
+    "online": true,
+    "last_contact_at": "2026-10-18T09:00:00Z"
+  }
+}

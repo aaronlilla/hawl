@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/msg_accepted.schema.json",
+  "title": "WS frame msg.accepted",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "msg.accepted"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "message_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+    },
+    "state": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/message_state"
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "send_per_min": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_body_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["send_per_min", "max_body_bytes"]
+    }
+  },
+  "required": ["t", "id", "message_id", "state", "limits"]
+}

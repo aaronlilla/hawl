@@ -1,0 +1,5 @@
+{
+  "t": "tool.call",
+  "name": "who",
+  "args": {}
+}

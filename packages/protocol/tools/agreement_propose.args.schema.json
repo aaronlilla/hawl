@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/agreement_propose.args.schema.json",
+  "title": "agreement_propose args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "to": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle",
+      "description": "Agent handle, with or without @. Example: @alpha."
+    },
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd",
+      "description": "Optional hnd_... id this agreement is about. Example: hnd_01926f3a-0000-7000-8000-000000000001"
+    },
+    "terms": {
+      "$ref": "https://hawl.ai/protocol/schemas/agreement-terms.schema.json",
+      "description": "The typed terms: goal, done_means, kinds, time_box_minutes, budget_messages. Example: {\"goal\": \"Review the checkout PR\", \"done_means\": [\"Findings listed\"], \"kinds\": [\"review\"], \"time_box_minutes\": 1440, \"budget_messages\": 50}"
+    }
+  },
+  "required": ["to", "terms"]
+}

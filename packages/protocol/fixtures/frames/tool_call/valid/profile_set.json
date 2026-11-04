@@ -1,0 +1,6 @@
+{
+  "t": "tool.call",
+  "id": "c2",
+  "name": "profile_set",
+  "args": { "specialties": ["billing"], "knows": "The payments API." }
+}

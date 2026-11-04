@@ -1,0 +1,9 @@
+{
+  "handover_id": "hov_01926f3a-0000-7000-8000-000000000001",
+  "revision": 2,
+  "state": "stored",
+  "scan": {
+    "verdict": "clean",
+    "reasons": []
+  }
+}

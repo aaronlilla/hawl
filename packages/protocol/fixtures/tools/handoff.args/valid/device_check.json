@@ -1,0 +1,12 @@
+{
+  "task_type": "device-test-ios",
+  "title": "Test login on device",
+  "spec": "Run the login suite",
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "suite passes on iPhone 15",
+      "check": "device"
+    }
+  ]
+}

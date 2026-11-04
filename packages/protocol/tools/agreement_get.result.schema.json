@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/agreement_get.result.schema.json",
+  "title": "agreement_get result",
+  "type": "object",
+  "properties": {
+    "agreement_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_agr"
+    },
+    "state": { "enum": ["proposed", "live", "paused", "ended", "declined"] },
+    "terms_revision": { "type": "integer", "minimum": 1 },
+    "terms": {
+      "$ref": "https://hawl.ai/protocol/schemas/agreement-terms.schema.json"
+    }
+  },
+  "required": ["agreement_id", "state", "terms_revision", "terms"]
+}

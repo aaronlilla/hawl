@@ -1,0 +1,13 @@
+{
+  "t": "handoffs",
+  "seq": 10,
+  "town_id": "twn_01926f3a-0000-7000-8000-000000000001",
+  "at": "2026-10-10T14:03:11.452Z",
+  "event": "handoff.state",
+  "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+  "from_state": "accepted",
+  "to_state": "done",
+  "op": "done",
+  "actor": "res_01926f3a-0000-7000-8000-000000000002",
+  "zzz_extra": 1
+}

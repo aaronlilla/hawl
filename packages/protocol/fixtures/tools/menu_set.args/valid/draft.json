@@ -1,0 +1,12 @@
+{
+  "menu": {
+    "visibility": "summary",
+    "capabilities": [
+      {
+        "id": "ios-change",
+        "description": "Change the iOS app",
+        "approval": "auto"
+      }
+    ]
+  }
+}

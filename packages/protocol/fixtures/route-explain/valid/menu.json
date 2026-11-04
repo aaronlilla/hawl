@@ -1,0 +1,15 @@
+{
+  "via": "menu",
+  "capability": "ios-change",
+  "menu_revision": 3,
+  "skipped": [
+    {
+      "yard": "y-1a2b3c4d",
+      "why": "menu_closed"
+    },
+    {
+      "yard": "vil_01926f3a-0000-7000-8000-000000000003",
+      "why": "offline"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "as_of": "2026-10-18T09:00:00Z",
+  "site": {
+    "id": "twn_01926f3a-0000-7000-8000-000000000005",
+    "yard_rule": "enforced",
+    "classifier_mode": "off"
+  },
+  "yards": [],
+  "hints": []
+}

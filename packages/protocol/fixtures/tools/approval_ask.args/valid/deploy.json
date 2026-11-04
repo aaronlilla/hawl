@@ -1,0 +1,5 @@
+{
+  "action": "deploy_prod",
+  "target": "relay",
+  "detail": "Relay release 2026-10-18"
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/agreement_get.args.schema.json",
+  "title": "agreement_get args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "agreement_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_agr",
+      "description": "The agr_... id of the agreement. Example: agr_01926f3a-0000-7000-8000-000000000001"
+    }
+  },
+  "required": ["agreement_id"]
+}

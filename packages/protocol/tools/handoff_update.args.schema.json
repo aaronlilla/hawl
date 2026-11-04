@@ -1,0 +1,177 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/handoff_update.args.schema.json",
+  "title": "handoff_update args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd",
+      "description": "The hnd_... id (not id). Example: hnd_01926f3a-0000-7000-8000-000000000001"
+    },
+    "op": {
+      "enum": [
+        "accept",
+        "decline",
+        "done",
+        "verify",
+        "reject",
+        "cancel",
+        "reassign",
+        "sign_off"
+      ],
+      "description": "accept, decline, done, verify, reject, cancel, reassign or sign_off. Example: verify."
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pr_url": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/http_url",
+          "description": "http or https PR link. Example: https://github.com/o/r/pull/12."
+        },
+        "sha": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/git_sha",
+          "description": "Full git sha (40 hex characters). For verify: the revision from handoff_get. Example: 9f2c1d0e8b7a6f5e4d3c2b1a0f9e8d7c6b5a4f3e."
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+          },
+          "maxItems": 10,
+          "description": "Up to 10 fil_... ids. Example: [\"fil_01926f3a-0000-7000-8000-000000000001\"]."
+        },
+        "ci_url": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/http_url",
+          "description": "http or https CI run link. Example: https://github.com/o/r/actions/runs/1."
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 1000,
+          "description": "Free note. Example: Ran the suite twice, both green."
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9_-]{1,32}$",
+                "description": "Criterion id from handoff_get. Example: c1."
+              },
+              "result": {
+                "enum": ["pass", "fail", "n/a"],
+                "description": "pass, fail or n/a. Example: pass."
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "description": "Why. Longer is rejected: put detail in evidence.note. Example: Test fails before the fix, passes after."
+              }
+            },
+            "required": ["id", "result"]
+          },
+          "maxItems": 10,
+          "description": "Up to 10 results, one per criterion from handoff_get. Example: [{\"id\": \"c1\", \"result\": \"pass\", \"reason\": \"ok\"}]"
+        },
+        "artifacts": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "github_artifact",
+                    "description": "Kind of artifact. Example: github_artifact."
+                  },
+                  "url": {
+                    "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/http_url",
+                    "description": "http or https link. Example: https://github.com/o/r/pull/12."
+                  }
+                },
+                "required": ["kind", "url"]
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "file",
+                    "description": "Kind of artifact. Example: file."
+                  },
+                  "file_id": {
+                    "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil",
+                    "description": "A fil_... id from file_put. Example: fil_01926f3a-0000-7000-8000-000000000001."
+                  }
+                },
+                "required": ["kind", "file_id"]
+              }
+            ]
+          },
+          "description": "Up to 10 items: {kind: github_artifact, url}<<file_id| or {kind: file, file_id}>>. Example: [{\"kind\": \"github_artifact\", \"url\": \"https://github.com/o/r/pull/12\"}]"
+        },
+        "device": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "platform": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "description": "Platform name. Example: ios."
+            },
+            "os": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "description": "Optional. Example: 18.2."
+            },
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "description": "Optional. Example: iPhone 15."
+            },
+            "suite": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "description": "Optional. Example: smoke."
+            },
+            "result": {
+              "enum": ["pass", "fail"],
+              "description": "pass or fail."
+            }
+          },
+          "required": ["platform", "result"],
+          "description": "Device test result: {platform, result} plus optional os, model, suite. Example: {\"platform\": \"ios\", \"result\": \"pass\"}"
+        },
+        "cost_usd": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100000,
+          "description": "Optional cost in US dollars. Example: 1.25."
+        }
+      },
+      "description": "Proof for done, verify or reject. Fields below, all optional. Example: {\"pr_url\": \"https://github.com/o/r/pull/12\", \"note\": \"Ran the suite\"}"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000,
+      "description": "Optional text for the other side. Example: Missing the empty-input case."
+    },
+    "to": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle",
+      "description": "For reassign: handle of the new agent. Example: @alpha."
+    }
+  },
+  "required": ["handoff_id", "op"]
+}

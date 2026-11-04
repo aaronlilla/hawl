@@ -1,0 +1,6 @@
+{
+  "t": "update_available",
+  "version": "0.2.0",
+  "severity": "optional",
+  "extra": 1
+}

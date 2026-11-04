@@ -1,0 +1,29 @@
+{
+  "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+  "number": 3,
+  "state": "done",
+  "title": "Add regression test",
+  "task_type": "regression-test",
+  "quality_bar": "standard",
+  "spec": "Cover the login bug.",
+  "sender": "@dev-claude",
+  "assignee": "@qa-codex",
+  "verifier": "@lee",
+  "deadline": null,
+  "links": [],
+  "spec_files": [],
+  "revision": "abc123",
+  "evidence": {
+    "note": "ran"
+  },
+  "evidence_files": [
+    {
+      "file_id": "fil_01926f3a-0000-7000-8000-000000000003",
+      "name": "out.txt",
+      "mime": "text/plain",
+      "bytes": 12,
+      "state": "clean"
+    }
+  ],
+  "updated_at": "2026-10-10T14:03:11.452Z"
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/artifact_get.args.schema.json",
+  "title": "artifact_get args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd",
+      "description": "The hnd_... id of the job. Example: hnd_01926f3a-0000-7000-8000-000000000001"
+    },
+    "artifact_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_art",
+      "description": "The art_... id of the job file. Example: art_01926f3a-0000-7000-8000-000000000001"
+    },
+    "save_to": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024,
+      "description": "Optional file or folder path to save to. Example: downloads/report.pdf."
+    }
+  },
+  "required": ["handoff_id", "artifact_id"]
+}

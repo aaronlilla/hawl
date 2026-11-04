@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/handover_get.result.schema.json",
+  "title": "handover_get result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "state": {
+      "enum": ["none", "stored", "consumed"]
+    },
+    "handover_id": {
+      "type": "string",
+      "pattern": "^hov_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "text": {
+      "type": "string",
+      "maxLength": 70000
+    },
+    "scan": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The scanner's verdict on the stored text and the ids of the detectors that fired. A flagged handover always reads back flagged.",
+      "properties": {
+        "verdict": {
+          "enum": ["clean", "flagged"]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "maxItems": 32
+        }
+      },
+      "required": ["verdict", "reasons"]
+    }
+  },
+  "required": ["state"]
+}

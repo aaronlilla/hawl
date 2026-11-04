@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/board_read.result.schema.json",
+  "title": "board_read result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "pins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "message_id": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+          },
+          "title": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/title"
+          },
+          "pinned_by": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "pinned_at": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 70000
+          }
+        },
+        "required": ["message_id", "title", "pinned_by", "pinned_at"]
+      },
+      "maxItems": 200
+    }
+  },
+  "required": ["pins"]
+}

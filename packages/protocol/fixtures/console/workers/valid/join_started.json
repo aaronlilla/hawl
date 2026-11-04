@@ -1,0 +1,11 @@
+{
+  "t": "workers",
+  "seq": 11,
+  "town_id": "twn_01926f3a-0000-7000-8000-000000000001",
+  "at": "2026-10-10T14:03:12.452Z",
+  "event": "join.started",
+  "join_request_id": "jrq_01926f3a-0000-7000-8000-000000000002",
+  "host": "claude_code",
+  "folder_label": "api",
+  "machine_name": "AARON-PC"
+}

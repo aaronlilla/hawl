@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/presence_set.schema.json",
+  "title": "WS frame presence.set",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "presence.set"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "status": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/presence_state"
+    }
+  },
+  "required": ["t", "status"]
+}

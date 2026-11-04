@@ -1,0 +1,11 @@
+{
+  "task_type": "t",
+  "title": "t",
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "t",
+      "check": "ci"
+    }
+  ]
+}

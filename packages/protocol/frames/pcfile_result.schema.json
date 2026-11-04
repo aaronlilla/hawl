@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/pcfile_result.schema.json",
+  "title": "WS frame pcfile.result (helper to relay)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": { "const": "pcfile.result" },
+    "id": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "ok": { "type": "boolean" },
+    "bytes": { "type": "integer", "minimum": 0 },
+    "mtime_ms": { "type": "number" },
+    "ino": { "type": "string", "maxLength": 40 },
+    "sha256": { "type": "string", "pattern": "^[A-Za-z0-9_-]{43}$" },
+    "reason": { "type": "string", "maxLength": 500 }
+  },
+  "required": ["t", "id", "ok"]
+}

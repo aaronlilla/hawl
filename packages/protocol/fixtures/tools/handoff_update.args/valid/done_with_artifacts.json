@@ -1,0 +1,18 @@
+{
+  "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+  "op": "done",
+  "evidence": {
+    "sha": "0123456789abcdef0123456789abcdef01234567",
+    "artifacts": [
+      {
+        "kind": "github_artifact",
+        "url": "https://github.com/acme/app/actions/runs/1/artifacts/2"
+      },
+      {
+        "kind": "file",
+        "file_id": "fil_01926f3a-0000-7000-8000-000000000006"
+      }
+    ],
+    "cost_usd": 0.42
+  }
+}

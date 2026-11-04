@@ -1,0 +1,5 @@
+{
+  "t": "subscribe",
+  "streams": ["feed"],
+  "after_seq": -1
+}
