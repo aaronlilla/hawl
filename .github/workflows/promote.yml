@@ -1,0 +1,40 @@
+# Lives in the public repo aaronlilla/hawl (copied there by mirror.yml). Not run in the private repo.
+# Moves the npm dist-tag latest to the version on next once that version is at least 48 h old.
+# Required repo secret: NPM_TOKEN, a granular npm token limited to the hawl package (dist-tag needs a token; trusted publishing covers publish only).
+name: promote
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: promote
+  cancel-in-progress: false
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          registry-url: https://registry.npmjs.org
+      - name: Promote next to latest after 48 h
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+          next="$(npm view hawl dist-tags.next)"
+          latest="$(npm view hawl dist-tags.latest 2>/dev/null || true)"
+          if [ -z "$next" ] || [ "$next" = "$latest" ]; then
+            echo "nothing to promote (next=${next:-none} latest=${latest:-none})"
+            exit 0
+          fi
+          published="$(npm view hawl time --json | jq -r --arg v "$next" '.[$v]')"
+          age=$(( $(date +%s) - $(date -d "$published" +%s) ))
+          if [ "$age" -lt 172800 ]; then
+            echo "hawl@${next} is $((age / 3600)) h old, waiting for 48 h"
+            exit 0
+          fi
+          npm dist-tag add "hawl@${next}" latest
+          echo "promoted hawl@${next} to latest"

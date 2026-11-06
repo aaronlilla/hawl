@@ -1,0 +1,15 @@
+{
+  "workers": [
+    {
+      "handle": "qa-codex",
+      "owner_display": "Sam",
+      "platform": "codex",
+      "status": "idle",
+      "status_age_s": 12,
+      "working_on": null,
+      "yard": "api",
+      "can_message": true
+    }
+  ],
+  "zzz_extra": 1
+}

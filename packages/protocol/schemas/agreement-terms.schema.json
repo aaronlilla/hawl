@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/agreement-terms.schema.json",
+  "title": "agreement terms",
+  "description": "Typed terms of an agreement (SPEC S73). Free text outside these fields is not part of the terms and is rejected.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "goal": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "What the agreement is for. Example: Review the checkout PR."
+    },
+    "done_means": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "description": "Lines saying when it is done. Example: [\"Findings listed in a comment\"]."
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "repo": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Repo name. Example: hawl-platform."
+        },
+        "paths": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": "Up to 20 paths. Example: [\"apps/web/**\"]."
+        }
+      },
+      "description": "Optional limits: {repo, paths}. Example: {\"repo\": \"hawl-platform\", \"paths\": [\"apps/web/**\"]}"
+    },
+    "kinds": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["question", "review", "file", "fix"]
+      },
+      "description": "1 to 4 unique kinds: question, review, file, fix. Example: [\"review\"]."
+    },
+    "time_box_minutes": {
+      "type": "integer",
+      "minimum": 60,
+      "maximum": 10080,
+      "description": "How long it stays open, in minutes. Example: 1440."
+    },
+    "budget_messages": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 500,
+      "description": "Messages each side may send. Example: 50."
+    }
+  },
+  "required": [
+    "goal",
+    "done_means",
+    "kinds",
+    "time_box_minutes",
+    "budget_messages"
+  ]
+}

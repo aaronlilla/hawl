@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/ask_human.args.schema.json",
+  "title": "ask_human args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "The question for the person. Example: Ship the beta tonight?"
+    },
+    "choices": {
+      "type": "array",
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "description": "Optional answers, up to 5 unique strings. Example: [\"yes\", \"no\"]."
+    },
+    "to": {
+      "enum": ["owner", "requester"],
+      "description": "Who to ask: owner or requester. requester needs handoff_id. Example: owner."
+    },
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd",
+      "description": "The hnd_... id; needed when to is requester. Example: hnd_01926f3a-0000-7000-8000-000000000001"
+    },
+    "wait_s": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 120,
+      "description": "Seconds to wait for the answer. Example: 0."
+    }
+  },
+  "required": ["question", "to"],
+  "if": {
+    "properties": {
+      "to": {
+        "const": "requester"
+      }
+    },
+    "required": ["to"]
+  },
+  "then": {
+    "required": ["handoff_id"]
+  }
+}

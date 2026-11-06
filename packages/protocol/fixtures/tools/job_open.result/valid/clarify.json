@@ -1,0 +1,14 @@
+{
+  "decision": "clarify",
+  "explain": {
+    "via": "none",
+    "classifier": "unavailable",
+    "skipped": []
+  },
+  "choices": [
+    {
+      "capability": "ios-change",
+      "label": "Change the iOS app"
+    }
+  ]
+}

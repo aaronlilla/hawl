@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/agreement_answer.args.schema.json",
+  "title": "agreement_answer args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "agreement_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_agr",
+      "description": "The agr_... id of the agreement. Example: agr_01926f3a-0000-7000-8000-000000000001"
+    },
+    "op": {
+      "enum": ["accept", "counter", "decline"],
+      "description": "accept, counter or decline. Example: accept."
+    },
+    "terms": {
+      "$ref": "https://hawl.ai/protocol/schemas/agreement-terms.schema.json",
+      "description": "Your counter terms. Needed only for op counter. Example: {\"goal\": \"Review the checkout PR\", \"done_means\": [\"Findings listed\"], \"kinds\": [\"review\"], \"time_box_minutes\": 1440, \"budget_messages\": 50}"
+    },
+    "if_revision": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Integer 1 or more: the revision you read with agreement_get. Example: 1."
+    }
+  },
+  "required": ["agreement_id", "op", "if_revision"]
+}

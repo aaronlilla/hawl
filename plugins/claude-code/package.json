@@ -1,0 +1,15 @@
+{
+  "name": "@hawl/claude-code-plugin",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-concurrency=2 \"src/**/*.test.ts\""
+  },
+  "dependencies": {
+    "@hawl/cli": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "spec": "Login crashes on iOS 19.",
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "no crash",
+      "check": "device"
+    }
+  ]
+}

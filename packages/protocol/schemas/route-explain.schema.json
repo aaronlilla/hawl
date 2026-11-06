@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/route-explain.schema.json",
+  "title": "Why a job went where it went (m2 contract 4, rules engine)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "via": {
+      "enum": [
+        "to_yard",
+        "rule",
+        "menu",
+        "own_yard",
+        "role",
+        "classifier",
+        "foreman_rule",
+        "correction",
+        "legacy",
+        "none"
+      ]
+    },
+    "rule_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "capability": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/capability"
+    },
+    "menu_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "classifier": {
+      "enum": ["used", "unavailable", "off"]
+    },
+    "role": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]{1,40}$"
+    },
+    "auto": {
+      "enum": ["flow", "jev", "person"]
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "ask": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "recommended": { "type": "string", "pattern": "^[a-z0-9_]{1,40}$" },
+        "why": { "type": "string", "maxLength": 40 },
+        "auto_at": { "type": "string", "maxLength": 40 }
+      },
+      "required": ["recommended", "why", "auto_at"]
+    },
+    "skipped": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "yard": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/yard_ref"
+          },
+          "why": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,39}$"
+          }
+        },
+        "required": ["yard", "why"]
+      }
+    }
+  },
+  "required": ["via", "skipped"]
+}

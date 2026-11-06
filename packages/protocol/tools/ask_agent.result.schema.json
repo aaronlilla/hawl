@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/ask_agent.result.schema.json",
+  "title": "ask_agent result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "enum": ["replied", "waiting"]
+    },
+    "message_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+    },
+    "reply": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "message_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 70000
+        }
+      },
+      "required": ["message_id", "text"]
+    },
+    "note": {
+      "type": "string",
+      "maxLength": 200
+    }
+  },
+  "required": ["status", "message_id"]
+}

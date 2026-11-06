@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/work_start.args.schema.json",
+  "title": "work_start args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "^[^\\u0000-\\u001f\\u007f]+$",
+      "description": "One-line title you write, never the prompt. Example: Fixing checkout."
+    },
+    "capability": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/capability",
+      "description": "Optional capability slug. Example: regression-test."
+    },
+    "repo": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^\\s]+$",
+      "description": "Optional repo name without spaces. Example: hawl-platform."
+    },
+    "handoff_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd",
+      "description": "Optional hnd_... id this work is for. Example: hnd_01926f3a-0000-7000-8000-000000000001"
+    }
+  },
+  "required": ["title"]
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/file_state.schema.json",
+  "title": "WS frame file.state",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "file.state"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "file_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+    },
+    "state": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/file_state"
+    },
+    "verdict": {
+      "$ref": "https://hawl.ai/protocol/schemas/scanner.schema.json#/$defs/file_verdict"
+    }
+  },
+  "required": ["t", "file_id", "state"]
+}

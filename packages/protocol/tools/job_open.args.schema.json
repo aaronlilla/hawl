@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/job_open.args.schema.json",
+  "title": "job_open args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/title",
+      "description": "Short title. Example: Cover the login bug."
+    },
+    "spec": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8000,
+      "description": "What to do. Example: Add a failing test, then fix it."
+    },
+    "capability": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/capability",
+      "description": "Optional capability slug (a-z 0-9 -). Example: regression-test."
+    },
+    "to_yard": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/yard_ref",
+      "description": "Optional target: a vil_... id or a yard slug. Example: acme-qa."
+    },
+    "prefer": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/handle",
+      "description": "Optional handle you would like to do it. Example: @alpha."
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_-]{1,32}$",
+            "description": "Short lowercase name (a-z 0-9 _ -). Example: c1."
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "description": "What must be true. Example: Test fails before the fix."
+          },
+          "check": {
+            "enum": ["manual", "ci", "file", "device"],
+            "description": "How it is checked: manual, ci, file or device. Example: manual."
+          }
+        },
+        "required": ["id", "text", "check"]
+      },
+      "minItems": 1,
+      "maxItems": 10,
+      "description": "1 to 10 'done means' lines, each {id, text, check}. Example: [{\"id\": \"c1\", \"text\": \"Test fails before the fix\", \"check\": \"manual\"}]"
+    },
+    "verify_capability": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/capability",
+      "description": "Optional capability slug for whoever checks it. Example: code-review."
+    },
+    "sign_off": {
+      "type": "boolean",
+      "description": "true asks for a final sign-off after verification. Example: false."
+    },
+    "deadline": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp",
+      "description": "Optional time, ISO 8601 date-time. Example: 2026-10-30T17:00:00Z."
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": ["github_pr", "github_issue", "url"],
+            "description": "github_pr, github_issue or url. Example: github_pr."
+          },
+          "url": {
+            "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/http_url",
+            "description": "http or https link. Example: https://github.com/o/r/pull/12."
+          }
+        },
+        "required": ["kind", "url"]
+      },
+      "maxItems": 10,
+      "description": "Up to 10 links, each {kind, url}. Example: [{\"kind\": \"github_pr\", \"url\": \"https://github.com/o/r/pull/12\"}]"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+      },
+      "maxItems": 10,
+      "description": "Up to 10 fil_... ids from file_put. Example: [\"fil_01926f3a-0000-7000-8000-000000000001\"]."
+    },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._:-]{1,64}$",
+      "description": "Optional retry key (letters, digits and. _: -). Same key, same job. Example: job-2026-10-23-a."
+    }
+  },
+  "required": ["title", "spec", "criteria"]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/handover_put.args.schema.json",
+  "title": "handover_put args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20000,
+      "description": "Notes for your next session, no secrets. Example: Goal: ... Next step: ..."
+    }
+  },
+  "required": ["text"]
+}

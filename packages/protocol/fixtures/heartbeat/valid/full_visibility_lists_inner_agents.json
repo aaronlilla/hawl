@@ -1,0 +1,24 @@
+{
+  "yard": "big-yard",
+  "state": "degraded",
+  "load": {
+    "active_tasks": 1,
+    "queued": 0
+  },
+  "workers": {
+    "busy": 1,
+    "idle": 1
+  },
+  "needs_human": 1,
+  "as_of": "2026-10-10T18:06:00Z",
+  "agents": [
+    {
+      "id": "a1",
+      "status": "busy"
+    },
+    {
+      "id": "a2",
+      "status": "needs_human"
+    }
+  ]
+}

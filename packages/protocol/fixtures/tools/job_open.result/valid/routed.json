@@ -1,0 +1,10 @@
+{
+  "decision": "routed",
+  "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+  "to_yard": "vil_01926f3a-0000-7000-8000-000000000002",
+  "explain": {
+    "via": "menu",
+    "capability": "ios-change",
+    "skipped": []
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "hawl-platform",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.11.2",
+  "engines": {
+    "node": ">=26"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "typescript": "7.0.2"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p apps/relay/tsconfig.json && tsc --noEmit -p apps/scanner/tsconfig.json && pnpm -C apps/web exec next typegen && tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p packages/authz/tsconfig.json && tsc --noEmit -p packages/cli/tsconfig.json && tsc --noEmit -p packages/gateway-contract/tsconfig.json && tsc --noEmit -p packages/migrate/tsconfig.json && tsc --noEmit -p packages/protocol/tsconfig.json && tsc --noEmit -p packages/ui/tsconfig.json"
+  }
+}

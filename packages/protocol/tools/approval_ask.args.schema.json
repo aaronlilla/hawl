@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/approval_ask.args.schema.json",
+  "title": "approval_ask args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "enum": [
+        "push_main",
+        "release",
+        "deploy_prod",
+        "delete_data",
+        "spend",
+        "other"
+      ],
+      "description": "One of push_main, release, deploy_prod, delete_data, spend, other. Example: push_main."
+    },
+    "target": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "What the action touches. Example: main of the web repo."
+    },
+    "sha": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/git_sha",
+      "description": "Optional full git sha (40 hex characters) the approval covers. Example: 9f2c1d0e8b7a6f5e4d3c2b1a0f9e8d7c6b5a4f3e."
+    },
+    "detail": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Optional extra context. Example: Release 1.4 after green CI."
+    },
+    "wait_s": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 120,
+      "description": "Seconds to wait for the answer. Example: 60."
+    }
+  },
+  "required": ["action", "target"]
+}

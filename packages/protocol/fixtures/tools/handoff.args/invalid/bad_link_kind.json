@@ -1,0 +1,18 @@
+{
+  "task_type": "t",
+  "title": "t",
+  "spec": "s",
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "t",
+      "check": "ci"
+    }
+  ],
+  "links": [
+    {
+      "kind": "ftp",
+      "url": "ftp://x"
+    }
+  ]
+}

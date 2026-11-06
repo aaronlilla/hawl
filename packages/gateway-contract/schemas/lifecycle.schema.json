@@ -1,0 +1,390 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/gateway-contract/schemas/lifecycle.schema.json",
+  "title": "Gateway task lifecycle event",
+  "description": "Handoff events through the gateway (12 section 9.1 item 3 and 4).",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/offer"
+    },
+    {
+      "$ref": "#/definitions/simple"
+    },
+    {
+      "$ref": "#/definitions/progress"
+    },
+    {
+      "$ref": "#/definitions/decline"
+    },
+    {
+      "$ref": "#/definitions/cancel"
+    },
+    {
+      "$ref": "#/definitions/reassign"
+    },
+    {
+      "$ref": "#/definitions/done"
+    },
+    {
+      "$ref": "#/definitions/verify"
+    },
+    {
+      "$ref": "#/definitions/direct_line_open"
+    },
+    {
+      "$ref": "#/definitions/direct_line_decision"
+    }
+  ],
+  "definitions": {
+    "offer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["yard", "task_id", "event", "at"],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "const": "offer"
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "capability": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "acceptance": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "quality_bar": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "simple": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["yard", "task_id", "event", "at"],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "type": "string",
+          "enum": ["accept", "expire"]
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "progress": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["yard", "task_id", "event", "at"],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "const": "progress"
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "decline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["yard", "task_id", "event", "at"],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "const": "decline"
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "cancel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["yard", "task_id", "event", "at"],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "const": "cancel"
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "reassign": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["yard", "task_id", "event", "at", "to"],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "const": "reassign"
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        }
+      }
+    },
+    "done": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "yard",
+        "task_id",
+        "event",
+        "at",
+        "revision_sha",
+        "evidence"
+      ],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "const": "done"
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "revision_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Machine-checkable proof, not only the gateway word.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "ref"],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": ["sha", "ci", "pr", "artifact"]
+              },
+              "ref": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              }
+            }
+          }
+        }
+      }
+    },
+    "verify": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["yard", "task_id", "event", "at", "revision_sha", "result"],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "const": "verify"
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "revision_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "result": {
+          "type": "string",
+          "enum": ["pass", "reject"]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "direct_line_open": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "yard",
+        "task_id",
+        "event",
+        "at",
+        "from_inner",
+        "to_village",
+        "purpose",
+        "ttl_minutes"
+      ],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "const": "direct_line_open"
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "from_inner": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "to_village": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 280
+        },
+        "ttl_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1440
+        }
+      }
+    },
+    "direct_line_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["yard", "task_id", "event", "at"],
+      "properties": {
+        "yard": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "event": {
+          "type": "string",
+          "enum": ["direct_line_approve", "direct_line_reject"]
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/pcfile.schema.json",
+  "title": "WS frame pcfile (relay to helper): stat one file, or after the owner's Allow hash it and send it once",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": { "const": "pcfile" },
+    "id": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "op": { "enum": ["stat", "hash", "put"] },
+    "path": { "type": "string", "minLength": 1, "maxLength": 1024 },
+    "bytes": { "type": "integer", "minimum": 0 },
+    "mtime_ms": { "type": "number" },
+    "ino": { "type": "string", "maxLength": 40 },
+    "sha256": { "type": "string", "pattern": "^[A-Za-z0-9_-]{43}$" },
+    "url": { "type": "string", "maxLength": 4096 },
+    "request_id": { "type": "string", "maxLength": 64 },
+    "to": { "type": "string", "maxLength": 64 },
+    "approval": {
+      "description": "The owner's WebAuthn assertion over the exact request, forwarded unchanged; the helper verifies it against passkeys it pinned itself",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "credential_id": { "type": "string", "maxLength": 8192 },
+        "client_data_json": { "type": "string", "maxLength": 8192 },
+        "authenticator_data": { "type": "string", "maxLength": 8192 },
+        "signature": { "type": "string", "maxLength": 8192 },
+        "exp": { "type": "number" }
+      },
+      "required": [
+        "credential_id",
+        "client_data_json",
+        "authenticator_data",
+        "signature",
+        "exp"
+      ]
+    }
+  },
+  "required": ["t", "id", "op", "path"]
+}

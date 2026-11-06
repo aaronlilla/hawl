@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/approval_ask.result.schema.json",
+  "title": "approval_ask result",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "enum": ["approved", "denied", "waiting"]
+    },
+    "approval_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_aap"
+    }
+  },
+  "required": ["status", "approval_id"]
+}

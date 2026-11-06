@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/handover_get.args.schema.json",
+  "title": "handover_get args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "peek": {
+      "type": "boolean",
+      "description": "true only says whether notes are stored, without the text. Example: true."
+    }
+  }
+}

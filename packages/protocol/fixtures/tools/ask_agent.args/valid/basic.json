@@ -1,0 +1,5 @@
+{
+  "to": "@beta",
+  "text": "Where is the retry config?",
+  "wait_s": 30
+}

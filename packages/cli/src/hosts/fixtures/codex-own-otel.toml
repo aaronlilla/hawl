@@ -1,0 +1,5 @@
+# my codex config
+model = "gpt-x"
+
+[otel]
+log_user_prompt = true

@@ -1,0 +1,100 @@
+{
+  "description": "Ed25519 sender_sig over the exact client_request bytes (b64url). Ed25519 is deterministic: re-signing the valid case must give the same sig.",
+  "note": "Test-only keys. Never use these outside tests.",
+  "alg": "EdDSA",
+  "kid": "key_GWYT1XBS5C25GYJX8K2DSWJM2C",
+  "sender_private_jwk": {
+    "kty": "OKP",
+    "crv": "Ed25519",
+    "x": "m-JcnWmnNifLk70VslunaeNImb5V3OxwrOdt33DSnOo",
+    "d": "CJmxLKOtHkelqBS6bipekA2Je1RGELfd8WqkPg68Ndg"
+  },
+  "keys": {
+    "sender": {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "m-JcnWmnNifLk70VslunaeNImb5V3OxwrOdt33DSnOo"
+    },
+    "other": {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "o9_miIdF-ZPITmfiZrn9ogXQE6wB75kQhI1H4UlU7Yg"
+    }
+  },
+  "client_request_json": {
+    "v": 1,
+    "sender_resident_id": "res_01928f3e-7a10-7c3b-8a55-1f2e3d4c5b6a",
+    "kid": "key_GWYT1XBS5C25GYJX8K2DSWJM2C",
+    "idempotency_key": "6f1d2c3e-9a8b-4c5d-8e7f-0a1b2c3d4e5f",
+    "conversation_id": null,
+    "reply_to": "msg_01928f3e-7a10-7c3b-8a55-0a0b0c0d0e0f",
+    "derived_from": [],
+    "to": {
+      "kind": "worker",
+      "resident_id": "res_01928f3e-7a10-7c3b-8a55-2a3b4c5d6e7f"
+    },
+    "intent": "ask",
+    "requested_capabilities": [],
+    "content": {
+      "parts": [
+        {
+          "kind": "text",
+          "text": "Can you confirm the API schema for /v2/orders is frozen? café 😀"
+        },
+        {
+          "kind": "data",
+          "data": {
+            "ticket": "ENG-412",
+            "n": 1.5
+          }
+        }
+      ]
+    },
+    "created_at": "2026-10-10T14:03:11.204Z",
+    "requested_expires_in": 1209600
+  },
+  "cases": [
+    {
+      "name": "valid",
+      "client_request": "eyJjb250ZW50Ijp7InBhcnRzIjpbeyJraW5kIjoidGV4dCIsInRleHQiOiJDYW4geW91IGNvbmZpcm0gdGhlIEFQSSBzY2hlbWEgZm9yIC92Mi9vcmRlcnMgaXMgZnJvemVuPyBjYWbDqSDwn5iAIn0seyJkYXRhIjp7Im4iOjEuNSwidGlja2V0IjoiRU5HLTQxMiJ9LCJraW5kIjoiZGF0YSJ9XX0sImNvbnZlcnNhdGlvbl9pZCI6bnVsbCwiY3JlYXRlZF9hdCI6IjIwMjYtMTAtMTBUMTQ6MDM6MTEuMjA0WiIsImRlcml2ZWRfZnJvbSI6W10sImlkZW1wb3RlbmN5X2tleSI6IjZmMWQyYzNlLTlhOGItNGM1ZC04ZTdmLTBhMWIyYzNkNGU1ZiIsImludGVudCI6ImFzayIsImtpZCI6ImtleV9HV1lUMVhCUzVDMjVHWUpYOEsyRFNXSk0yQyIsInJlcGx5X3RvIjoibXNnXzAxOTI4ZjNlLTdhMTAtN2MzYi04YTU1LTBhMGIwYzBkMGUwZiIsInJlcXVlc3RlZF9jYXBhYmlsaXRpZXMiOltdLCJyZXF1ZXN0ZWRfZXhwaXJlc19pbiI6MTIwOTYwMCwic2VuZGVyX3Jlc2lkZW50X2lkIjoicmVzXzAxOTI4ZjNlLTdhMTAtN2MzYi04YTU1LTFmMmUzZDRjNWI2YSIsInRvIjp7ImtpbmQiOiJ3b3JrZXIiLCJyZXNpZGVudF9pZCI6InJlc18wMTkyOGYzZS03YTEwLTdjM2ItOGE1NS0yYTNiNGM1ZDZlN2YifSwidiI6MX0",
+      "sig": "q0dOCE5oOOG6KdfCzvhoWkp0b7oTFKO5_mYPVzFAAVj4cpgvRbbaJgcBOaoI9beqCpNDQ5VZLvGXhn92shCdBg",
+      "pub": "sender",
+      "expect": "valid"
+    },
+    {
+      "name": "tampered: one bit of client_request flipped",
+      "client_request": "eyJjb250ZW50Ijp7InBhcnRzIjpbeyJraW5kIjoidGV4dCIsInRleHQiOiJDYW4geW91IGNvbmZpcm0gdGhlIEFQSSBzY2hlbWEgZm9yIC92Mi9vcmRlcnMgaXMgZnJvemVuPyBjYWbDqSDwn5iAIn0seyJkYXRhIjp7Im4iOjEuNSwidGlja2V0IjoiRU5HLTQxMiJ9LCJraW5kIjoiZGF0YSJ9XX0sImNvbnZlcnNhdGlvbl9pZCI6bnVsbCwiY3JlYXRlZF9hdCI6IjIwMjYtMTAtMTBUMTQ6MDM6MTEuMjA0WiIsImRlcml2ZWRfZnJvbSI6W10sImlkZW1wb3RlbmN5X2tleSI6IjZmMWQyYzNlLTlhOGItNGM1ZC04ZTdmLTBhMWIyYzNkNGU1ZiIsImludGVudCI6ImFzayIsImtpZCI6ImtleV9HV1lUMVhCUzVDMjVHWUpYOEsyRFNXSk0yQyIsInJlcGx5X3RvIjoibXNnXzAxOTI4ZjNlLTdhMTAtN2MzYi04YTU1LTBhMGIwYzBkMGUwZiIsInJlcXVlc3RlZF9jYXBhYmlsaXRpZXMiOltdLCJyZXF1ZXN0ZWRfZXhwaXJlc19pbiI6MTIwOTYwMCwic2VuZGVyX3Jlc2lkZW50X2lkIjoicmVzXzAxOTI4ZjNlLTdhMTAtN2MzYi04YTU1LTFmMmUzZDRjNWI2YSIsInRvIjp7ImtpbmQiOiJ3b3JrZXIiLCJyZXNpZGVudF9pZCI6InJlc18wMTkyOGYzZS03YTEwLTdjM2ItOGE1NS0yYTNiNGM1ZDZlN2YifSwidiI7MX0",
+      "sig": "q0dOCE5oOOG6KdfCzvhoWkp0b7oTFKO5_mYPVzFAAVj4cpgvRbbaJgcBOaoI9beqCpNDQ5VZLvGXhn92shCdBg",
+      "pub": "sender",
+      "expect": "invalid"
+    },
+    {
+      "name": "tampered: signature first char changed",
+      "client_request": "eyJjb250ZW50Ijp7InBhcnRzIjpbeyJraW5kIjoidGV4dCIsInRleHQiOiJDYW4geW91IGNvbmZpcm0gdGhlIEFQSSBzY2hlbWEgZm9yIC92Mi9vcmRlcnMgaXMgZnJvemVuPyBjYWbDqSDwn5iAIn0seyJkYXRhIjp7Im4iOjEuNSwidGlja2V0IjoiRU5HLTQxMiJ9LCJraW5kIjoiZGF0YSJ9XX0sImNvbnZlcnNhdGlvbl9pZCI6bnVsbCwiY3JlYXRlZF9hdCI6IjIwMjYtMTAtMTBUMTQ6MDM6MTEuMjA0WiIsImRlcml2ZWRfZnJvbSI6W10sImlkZW1wb3RlbmN5X2tleSI6IjZmMWQyYzNlLTlhOGItNGM1ZC04ZTdmLTBhMWIyYzNkNGU1ZiIsImludGVudCI6ImFzayIsImtpZCI6ImtleV9HV1lUMVhCUzVDMjVHWUpYOEsyRFNXSk0yQyIsInJlcGx5X3RvIjoibXNnXzAxOTI4ZjNlLTdhMTAtN2MzYi04YTU1LTBhMGIwYzBkMGUwZiIsInJlcXVlc3RlZF9jYXBhYmlsaXRpZXMiOltdLCJyZXF1ZXN0ZWRfZXhwaXJlc19pbiI6MTIwOTYwMCwic2VuZGVyX3Jlc2lkZW50X2lkIjoicmVzXzAxOTI4ZjNlLTdhMTAtN2MzYi04YTU1LTFmMmUzZDRjNWI2YSIsInRvIjp7ImtpbmQiOiJ3b3JrZXIiLCJyZXNpZGVudF9pZCI6InJlc18wMTkyOGYzZS03YTEwLTdjM2ItOGE1NS0yYTNiNGM1ZDZlN2YifSwidiI6MX0",
+      "sig": "A0dOCE5oOOG6KdfCzvhoWkp0b7oTFKO5_mYPVzFAAVj4cpgvRbbaJgcBOaoI9beqCpNDQ5VZLvGXhn92shCdBg",
+      "pub": "sender",
+      "expect": "invalid"
+    },
+    {
+      "name": "tampered: signature truncated",
+      "client_request": "eyJjb250ZW50Ijp7InBhcnRzIjpbeyJraW5kIjoidGV4dCIsInRleHQiOiJDYW4geW91IGNvbmZpcm0gdGhlIEFQSSBzY2hlbWEgZm9yIC92Mi9vcmRlcnMgaXMgZnJvemVuPyBjYWbDqSDwn5iAIn0seyJkYXRhIjp7Im4iOjEuNSwidGlja2V0IjoiRU5HLTQxMiJ9LCJraW5kIjoiZGF0YSJ9XX0sImNvbnZlcnNhdGlvbl9pZCI6bnVsbCwiY3JlYXRlZF9hdCI6IjIwMjYtMTAtMTBUMTQ6MDM6MTEuMjA0WiIsImRlcml2ZWRfZnJvbSI6W10sImlkZW1wb3RlbmN5X2tleSI6IjZmMWQyYzNlLTlhOGItNGM1ZC04ZTdmLTBhMWIyYzNkNGU1ZiIsImludGVudCI6ImFzayIsImtpZCI6ImtleV9HV1lUMVhCUzVDMjVHWUpYOEsyRFNXSk0yQyIsInJlcGx5X3RvIjoibXNnXzAxOTI4ZjNlLTdhMTAtN2MzYi04YTU1LTBhMGIwYzBkMGUwZiIsInJlcXVlc3RlZF9jYXBhYmlsaXRpZXMiOltdLCJyZXF1ZXN0ZWRfZXhwaXJlc19pbiI6MTIwOTYwMCwic2VuZGVyX3Jlc2lkZW50X2lkIjoicmVzXzAxOTI4ZjNlLTdhMTAtN2MzYi04YTU1LTFmMmUzZDRjNWI2YSIsInRvIjp7ImtpbmQiOiJ3b3JrZXIiLCJyZXNpZGVudF9pZCI6InJlc18wMTkyOGYzZS03YTEwLTdjM2ItOGE1NS0yYTNiNGM1ZDZlN2YifSwidiI6MX0",
+      "sig": "q0dOCE5oOOG6KdfCzvhoWkp0b7oTFKO5_mYPVzFAAVj4cpgvRbbaJgcBOaoI9beqCpNDQ5VZLvGXhn92sh",
+      "pub": "sender",
+      "expect": "invalid"
+    },
+    {
+      "name": "tampered: wrong public key",
+      "client_request": "eyJjb250ZW50Ijp7InBhcnRzIjpbeyJraW5kIjoidGV4dCIsInRleHQiOiJDYW4geW91IGNvbmZpcm0gdGhlIEFQSSBzY2hlbWEgZm9yIC92Mi9vcmRlcnMgaXMgZnJvemVuPyBjYWbDqSDwn5iAIn0seyJkYXRhIjp7Im4iOjEuNSwidGlja2V0IjoiRU5HLTQxMiJ9LCJraW5kIjoiZGF0YSJ9XX0sImNvbnZlcnNhdGlvbl9pZCI6bnVsbCwiY3JlYXRlZF9hdCI6IjIwMjYtMTAtMTBUMTQ6MDM6MTEuMjA0WiIsImRlcml2ZWRfZnJvbSI6W10sImlkZW1wb3RlbmN5X2tleSI6IjZmMWQyYzNlLTlhOGItNGM1ZC04ZTdmLTBhMWIyYzNkNGU1ZiIsImludGVudCI6ImFzayIsImtpZCI6ImtleV9HV1lUMVhCUzVDMjVHWUpYOEsyRFNXSk0yQyIsInJlcGx5X3RvIjoibXNnXzAxOTI4ZjNlLTdhMTAtN2MzYi04YTU1LTBhMGIwYzBkMGUwZiIsInJlcXVlc3RlZF9jYXBhYmlsaXRpZXMiOltdLCJyZXF1ZXN0ZWRfZXhwaXJlc19pbiI6MTIwOTYwMCwic2VuZGVyX3Jlc2lkZW50X2lkIjoicmVzXzAxOTI4ZjNlLTdhMTAtN2MzYi04YTU1LTFmMmUzZDRjNWI2YSIsInRvIjp7ImtpbmQiOiJ3b3JrZXIiLCJyZXNpZGVudF9pZCI6InJlc18wMTkyOGYzZS03YTEwLTdjM2ItOGE1NS0yYTNiNGM1ZDZlN2YifSwidiI6MX0",
+      "sig": "q0dOCE5oOOG6KdfCzvhoWkp0b7oTFKO5_mYPVzFAAVj4cpgvRbbaJgcBOaoI9beqCpNDQ5VZLvGXhn92shCdBg",
+      "pub": "other",
+      "expect": "invalid"
+    },
+    {
+      "name": "tampered: re-serialized (not JCS) bytes",
+      "client_request": "ewogInYiOiAxLAogInNlbmRlcl9yZXNpZGVudF9pZCI6ICJyZXNfMDE5MjhmM2UtN2ExMC03YzNiLThhNTUtMWYyZTNkNGM1YjZhIiwKICJraWQiOiAia2V5X0dXWVQxWEJTNUMyNUdZSlg4SzJEU1dKTTJDIiwKICJpZGVtcG90ZW5jeV9rZXkiOiAiNmYxZDJjM2UtOWE4Yi00YzVkLThlN2YtMGExYjJjM2Q0ZTVmIiwKICJjb252ZXJzYXRpb25faWQiOiBudWxsLAogInJlcGx5X3RvIjogIm1zZ18wMTkyOGYzZS03YTEwLTdjM2ItOGE1NS0wYTBiMGMwZDBlMGYiLAogImRlcml2ZWRfZnJvbSI6IFtdLAogInRvIjogewogICJraW5kIjogIndvcmtlciIsCiAgInJlc2lkZW50X2lkIjogInJlc18wMTkyOGYzZS03YTEwLTdjM2ItOGE1NS0yYTNiNGM1ZDZlN2YiCiB9LAogImludGVudCI6ICJhc2siLAogInJlcXVlc3RlZF9jYXBhYmlsaXRpZXMiOiBbXSwKICJjb250ZW50IjogewogICJwYXJ0cyI6IFsKICAgewogICAgImtpbmQiOiAidGV4dCIsCiAgICAidGV4dCI6ICJDYW4geW91IGNvbmZpcm0gdGhlIEFQSSBzY2hlbWEgZm9yIC92Mi9vcmRlcnMgaXMgZnJvemVuPyBjYWbDqSDwn5iAIgogICB9LAogICB7CiAgICAia2luZCI6ICJkYXRhIiwKICAgICJkYXRhIjogewogICAgICJ0aWNrZXQiOiAiRU5HLTQxMiIsCiAgICAgIm4iOiAxLjUKICAgIH0KICAgfQogIF0KIH0sCiAiY3JlYXRlZF9hdCI6ICIyMDI2LTEwLTEwVDE0OjAzOjExLjIwNFoiLAogInJlcXVlc3RlZF9leHBpcmVzX2luIjogMTIwOTYwMAp9",
+      "sig": "q0dOCE5oOOG6KdfCzvhoWkp0b7oTFKO5_mYPVzFAAVj4cpgvRbbaJgcBOaoI9beqCpNDQ5VZLvGXhn92shCdBg",
+      "pub": "sender",
+      "expect": "invalid"
+    }
+  ]
+}

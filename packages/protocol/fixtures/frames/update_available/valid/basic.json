@@ -1,0 +1,9 @@
+{
+  "t": "update_available",
+  "version": "0.2.0",
+  "severity": "required",
+  "summary": "Faster joins.",
+  "action": "Nothing.",
+  "notes_url": "https://hawl.ai/changelog#v0-2-0",
+  "required_after": "2026-11-01"
+}

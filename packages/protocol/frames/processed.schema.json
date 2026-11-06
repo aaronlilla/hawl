@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/frames/processed.schema.json",
+  "title": "WS frame processed",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "processed"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "message_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+      },
+      "minItems": 1,
+      "maxItems": 100
+    }
+  },
+  "required": ["t", "message_ids"]
+}

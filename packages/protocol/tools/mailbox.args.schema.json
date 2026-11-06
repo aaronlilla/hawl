@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/mailbox.args.schema.json",
+  "title": "mailbox args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Messages to return, integer 1 or more (more than 20 is cut to 20). Example: 10."
+    },
+    "include_read": {
+      "type": "boolean",
+      "description": "true also returns already-read messages. Example: false."
+    },
+    "ack": {
+      "type": "string",
+      "maxLength": 340,
+      "description": "The ack value from your last mailbox reply: marks those messages read. Without it a message comes back on one more read only. Example: \"12.13\"."
+    }
+  }
+}

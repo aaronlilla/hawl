@@ -1,0 +1,34 @@
+{
+  "name": "@hawl/cli",
+  "version": "0.0.0",
+  "mcpName": "io.github.aaronlilla/hawl",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "hawl": "./dist/main.js"
+  },
+  "scripts": {
+    "build": "node build/dist.mjs",
+    "build:sea": "node build/sea.mjs",
+    "test": "node --test --test-concurrency=2 \"src/**/*.test.ts\""
+  },
+  "dependencies": {
+    "@hawl/gateway-contract": "workspace:*",
+    "@hawl/protocol": "workspace:*",
+    "@modelcontextprotocol/server": "2.3.1",
+    "@napi-rs/keyring": "2.1.1",
+    "canonicalize": "5.1.0",
+    "pino": "10.4.0",
+    "smol-toml": "1.9.1",
+    "ws": "8.22.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "@types/ws": "8.18.2",
+    "esbuild": "0.28.2"
+  }
+}

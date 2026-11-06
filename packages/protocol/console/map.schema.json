@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/console/map.schema.json",
+  "title": "Console WS map",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "t": {
+      "const": "map"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "town_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_twn"
+    },
+    "at": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+    },
+    "kind": {
+      "enum": [
+        "resident.moved",
+        "message.sent",
+        "handoff.state",
+        "file.put",
+        "scan.flag",
+        "loop.cap",
+        "presence"
+      ]
+    },
+    "from": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "to": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ids": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resident_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_res"
+        },
+        "message_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_msg"
+        },
+        "conversation_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_cnv"
+        },
+        "handoff_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_hnd"
+        },
+        "file_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_fil"
+        },
+        "channel_id": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_chn"
+        }
+      }
+    }
+  },
+  "required": ["t", "seq", "town_id", "at", "kind", "ids"]
+}

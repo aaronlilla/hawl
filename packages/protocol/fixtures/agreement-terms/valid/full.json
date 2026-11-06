@@ -1,0 +1,11 @@
+{
+  "goal": "Review the login change",
+  "done_means": ["Tests pass"],
+  "kinds": ["question", "review", "file", "fix"],
+  "time_box_minutes": 10080,
+  "budget_messages": 500,
+  "scope": {
+    "repo": "hawl",
+    "paths": ["apps/web/**"]
+  }
+}

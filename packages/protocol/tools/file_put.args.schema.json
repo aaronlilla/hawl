@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/tools/file_put.args.schema.json",
+  "title": "file_put args",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "description": "Path of the local file to upload. Example: test-output.txt."
+    },
+    "upload_id": {
+      "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/id_upl",
+      "description": "Optional upl_... id of an upload already started. Usually omit. Example: upl_01926f3a-0000-7000-8000-000000000001."
+    }
+  },
+  "oneOf": [
+    {
+      "required": ["path"]
+    },
+    {
+      "required": ["upload_id"]
+    }
+  ]
+}

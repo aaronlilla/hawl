@@ -1,0 +1,6 @@
+{
+  "t": "inbox.fetch",
+  "after_seq": 1042,
+  "limit": 20,
+  "zzz_extra": 1
+}

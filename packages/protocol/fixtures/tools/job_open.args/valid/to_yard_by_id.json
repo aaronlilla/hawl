@@ -1,0 +1,12 @@
+{
+  "title": "Fix login crash",
+  "spec": "Login crashes on iOS 19.",
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "no crash",
+      "check": "device"
+    }
+  ],
+  "to_yard": "vil_01926f3a-0000-7000-8000-000000000002"
+}

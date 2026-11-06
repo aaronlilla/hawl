@@ -1,0 +1,29 @@
+{
+  "yard": "qa-yard",
+  "owner": "user_qa",
+  "display_name": "QA's Lab",
+  "visibility": "summary",
+  "capabilities": [
+    {
+      "id": "regression-test",
+      "description": "Run regression suite against a build",
+      "inputs": ["build_ref", "test_scope"],
+      "outputs": ["test_report"],
+      "quality_bar": ["standard", "critical"],
+      "typical_minutes": 20,
+      "accepts_files": ["application/zip", "text/plain"]
+    },
+    {
+      "id": "test-plan",
+      "description": "Write a test plan from a spec",
+      "inputs": ["spec"],
+      "outputs": ["test_plan"],
+      "typical_minutes": 10
+    }
+  ],
+  "routing_policy": {
+    "accept_from": ["site"],
+    "auto_accept": false,
+    "daily_budget_usd": 5
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "crd_01926f3a-0000-7000-8000-000000000007",
+  "worker": "res_01926f3a-0000-7000-8000-000000000004",
+  "site": "twn_01926f3a-0000-7000-8000-000000000005",
+  "title": "fix\nnow",
+  "capability": "ios-change",
+  "repo": "acme/app",
+  "state": "working",
+  "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+  "started_at": "2026-10-18T09:00:00Z",
+  "updated_at": "2026-10-18T09:00:00Z",
+  "ended_at": null
+}

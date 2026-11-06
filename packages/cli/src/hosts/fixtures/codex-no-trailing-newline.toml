@@ -1,0 +1,6 @@
+# my codex config
+model = "gpt-x"
+
+[mcp_servers.other]
+command = "y"
+args = ["a"]

@@ -1,0 +1,125 @@
+{
+  "description": "view_sha256 = b64url(SHA-256(JCS(view))). Key order in the JSON does not matter; content does.",
+  "view": {
+    "parts": [
+      {
+        "kind": "text",
+        "text": "Can you confirm the API schema for /v2/orders is frozen? café 😀"
+      },
+      {
+        "kind": "data",
+        "data": {
+          "ticket": "ENG-412",
+          "n": 1.5
+        }
+      }
+    ]
+  },
+  "view_sha256": "S0xBY2EuzYs0qX6QBMwZdrPDyNw02gpSr_UX9VtpJ3g",
+  "cases": [
+    {
+      "name": "valid",
+      "view": {
+        "parts": [
+          {
+            "kind": "text",
+            "text": "Can you confirm the API schema for /v2/orders is frozen? café 😀"
+          },
+          {
+            "kind": "data",
+            "data": {
+              "ticket": "ENG-412",
+              "n": 1.5
+            }
+          }
+        ]
+      },
+      "view_sha256": "S0xBY2EuzYs0qX6QBMwZdrPDyNw02gpSr_UX9VtpJ3g",
+      "expect": "valid"
+    },
+    {
+      "name": "valid: same view with keys reordered",
+      "view": {
+        "parts": [
+          {
+            "text": "Can you confirm the API schema for /v2/orders is frozen? café 😀",
+            "kind": "text"
+          },
+          {
+            "data": {
+              "n": 1.5,
+              "ticket": "ENG-412"
+            },
+            "kind": "data"
+          }
+        ]
+      },
+      "view_sha256": "S0xBY2EuzYs0qX6QBMwZdrPDyNw02gpSr_UX9VtpJ3g",
+      "expect": "valid"
+    },
+    {
+      "name": "tampered: one word changed",
+      "view": {
+        "parts": [
+          {
+            "kind": "text",
+            "text": "Can you confirm the API schema for /v2/orders is forzen? café 😀"
+          },
+          {
+            "kind": "data",
+            "data": {
+              "ticket": "ENG-412",
+              "n": 1.5
+            }
+          }
+        ]
+      },
+      "view_sha256": "S0xBY2EuzYs0qX6QBMwZdrPDyNw02gpSr_UX9VtpJ3g",
+      "expect": "invalid"
+    },
+    {
+      "name": "tampered: part appended",
+      "view": {
+        "parts": [
+          {
+            "kind": "text",
+            "text": "Can you confirm the API schema for /v2/orders is frozen? café 😀"
+          },
+          {
+            "kind": "data",
+            "data": {
+              "ticket": "ENG-412",
+              "n": 1.5
+            }
+          },
+          {
+            "kind": "text",
+            "text": "extra"
+          }
+        ]
+      },
+      "view_sha256": "S0xBY2EuzYs0qX6QBMwZdrPDyNw02gpSr_UX9VtpJ3g",
+      "expect": "invalid"
+    },
+    {
+      "name": "tampered: hash changed",
+      "view": {
+        "parts": [
+          {
+            "kind": "text",
+            "text": "Can you confirm the API schema for /v2/orders is frozen? café 😀"
+          },
+          {
+            "kind": "data",
+            "data": {
+              "ticket": "ENG-412",
+              "n": 1.5
+            }
+          }
+        ]
+      },
+      "view_sha256": "A0xBY2EuzYs0qX6QBMwZdrPDyNw02gpSr_UX9VtpJ3g",
+      "expect": "invalid"
+    }
+  ]
+}

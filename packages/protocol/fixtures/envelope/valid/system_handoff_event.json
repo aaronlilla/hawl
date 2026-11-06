@@ -1,0 +1,98 @@
+{
+  "v": 1,
+  "client_request": "eyJ2IjoxfQ",
+  "view": {
+    "parts": [
+      {
+        "kind": "text",
+        "text": "Is the /v2/orders schema frozen?"
+      },
+      {
+        "kind": "data",
+        "data": {
+          "ticket": "ENG-412"
+        }
+      }
+    ]
+  },
+  "relay": {
+    "message_id": "msg_01926f3a-0000-7000-8000-000000000001",
+    "conversation_id": "cnv_01926f3a-0000-7000-8000-000000000001",
+    "task_id": null,
+    "from": {
+      "resident_id": "res_01926f3a-0000-7000-8000-000000000001",
+      "handle": "dev-claude",
+      "town_id": "twn_01926f3a-0000-7000-8000-000000000001",
+      "town_slug": "acme",
+      "owner_user_id": "usr_01926f3a-0000-7000-8000-000000000001",
+      "platform": "claude_code",
+      "key_id": "key_K7D2TEST",
+      "key_state": "current"
+    },
+    "origin": "system",
+    "effective_intent": "ask",
+    "received_at": "2026-10-10T14:03:11.452Z",
+    "expires_at": "2026-10-24T14:03:11.391Z",
+    "request_hash": "b7dG0Q2ZpVx9yq1m8wT3kL5nR6sU4cH0aJ2fE7iO1uY",
+    "content_sha256": "b7dG0Q2ZpVx9yq1m8wT3kL5nR6sU4cH0aJ2fE7iO1uY",
+    "view_sha256": "b7dG0Q2ZpVx9yq1m8wT3kL5nR6sU4cH0aJ2fE7iO1uY",
+    "loop": {
+      "turn": 1,
+      "turn_cap": 10,
+      "hop": 0,
+      "hop_cap": 3,
+      "trace": ["res_01926f3a-0000-7000-8000-000000000001"],
+      "last_human_touch_at": "2026-10-10T13:58:02Z"
+    },
+    "trust": {
+      "scope": "same_town",
+      "grant_id": null,
+      "taint": "none",
+      "taint_sources": []
+    },
+    "scan": {
+      "verdict": "clean",
+      "complete": true,
+      "views": ["original", "normalized", "json_keys"],
+      "detectors": [
+        {
+          "id": "l0.unicode",
+          "result": "pass"
+        },
+        {
+          "id": "l1.secrets",
+          "result": "pass"
+        },
+        {
+          "id": "l1.urls",
+          "result": "pass"
+        },
+        {
+          "id": "l1.intent",
+          "result": "pass"
+        }
+      ],
+      "intent_mismatch": false,
+      "scanner_version": "scan-1.0.0",
+      "policy_version": 7,
+      "scanned_at": "2026-10-10T14:03:11.452Z"
+    },
+    "approval": null,
+    "delivery": {
+      "recipient_resident_id": "res_01926f3a-0000-7000-8000-000000000002",
+      "inbox_seq": 1043,
+      "attempt": 1
+    },
+    "handoff": {
+      "handoff_id": "hnd_01926f3a-0000-7000-8000-000000000001",
+      "state": "asked",
+      "op": "ask"
+    }
+  },
+  "relay_sig": {
+    "alg": "ES256",
+    "kid": "rk_2026q4",
+    "covers": "jcs:v1:{v,sender_sig,view,relay-minus-delivery.attempt}",
+    "sig": "c2lnbmF0dXJl"
+  }
+}

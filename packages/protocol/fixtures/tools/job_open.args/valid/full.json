@@ -1,0 +1,25 @@
+{
+  "title": "Fix login crash",
+  "spec": "Login crashes on iOS 19.",
+  "criteria": [
+    {
+      "id": "c1",
+      "text": "no crash",
+      "check": "device"
+    }
+  ],
+  "capability": "ios-change",
+  "to_yard": "y-1a2b3c4d",
+  "prefer": "@cc-ios",
+  "verify_capability": "device-test-ios",
+  "sign_off": true,
+  "deadline": "2026-10-18T09:00:00Z",
+  "links": [
+    {
+      "kind": "github_issue",
+      "url": "https://github.com/acme/app/issues/7"
+    }
+  ],
+  "files": ["fil_01926f3a-0000-7000-8000-000000000006"],
+  "idempotency_key": "pm-2026-10-18:login"
+}

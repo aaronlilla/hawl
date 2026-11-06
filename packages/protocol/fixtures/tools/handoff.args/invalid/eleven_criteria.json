@@ -1,0 +1,62 @@
+{
+  "task_type": "t",
+  "title": "t",
+  "spec": "s",
+  "criteria": [
+    {
+      "id": "c0",
+      "text": "t",
+      "check": "manual"
+    },
+    {
+      "id": "c1",
+      "text": "t",
+      "check": "manual"
+    },
+    {
+      "id": "c2",
+      "text": "t",
+      "check": "manual"
+    },
+    {
+      "id": "c3",
+      "text": "t",
+      "check": "manual"
+    },
+    {
+      "id": "c4",
+      "text": "t",
+      "check": "manual"
+    },
+    {
+      "id": "c5",
+      "text": "t",
+      "check": "manual"
+    },
+    {
+      "id": "c6",
+      "text": "t",
+      "check": "manual"
+    },
+    {
+      "id": "c7",
+      "text": "t",
+      "check": "manual"
+    },
+    {
+      "id": "c8",
+      "text": "t",
+      "check": "manual"
+    },
+    {
+      "id": "c9",
+      "text": "t",
+      "check": "manual"
+    },
+    {
+      "id": "c10",
+      "text": "t",
+      "check": "manual"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hawl.ai/protocol/schemas/key-manifest.schema.json",
+  "title": "Root-signed relay key manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "not_before": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        },
+        "not_after": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+        },
+        "keys": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kid": {
+                "type": "string",
+                "pattern": "^rk_\\d{4}q[1-4]$"
+              },
+              "jwk": {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/jwk_ec_p256"
+              },
+              "status": {
+                "enum": ["current", "next", "retired"]
+              }
+            },
+            "required": ["kid", "jwk", "status"]
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "revoked": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kid": {
+                "type": "string",
+                "pattern": "^rk_\\d{4}q[1-4]$"
+              },
+              "at": {
+                "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/timestamp"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": ["kid", "at", "reason"]
+          },
+          "maxItems": 64
+        }
+      },
+      "required": ["v", "seq", "not_before", "not_after", "keys", "revoked"]
+    },
+    "sig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "alg": {
+          "const": "EdDSA"
+        },
+        "kid": {
+          "type": "string",
+          "pattern": "^root_[a-z0-9]+$"
+        },
+        "sig": {
+          "$ref": "https://hawl.ai/protocol/schemas/common.schema.json#/$defs/b64url"
+        }
+      },
+      "required": ["alg", "kid", "sig"]
+    }
+  },
+  "required": ["payload", "sig"]
+}

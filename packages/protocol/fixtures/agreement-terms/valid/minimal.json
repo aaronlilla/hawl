@@ -1,0 +1,7 @@
+{
+  "goal": "Review the login change",
+  "done_means": ["Tests pass"],
+  "kinds": ["question", "review"],
+  "time_box_minutes": 120,
+  "budget_messages": 20
+}

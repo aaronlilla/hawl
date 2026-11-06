@@ -1,0 +1,13 @@
+{
+  "error": {
+    "code": "turn_cap_reached",
+    "message": "message",
+    "request_id": "req_01926f3a-0000-7000-8000-000000000001",
+    "retry_after": null,
+    "details": {
+      "conversation_id": "cnv_01926f3a-0000-7000-8000-000000000001",
+      "turn_cap": 10
+    }
+  },
+  "zzz_extra": 1
+}

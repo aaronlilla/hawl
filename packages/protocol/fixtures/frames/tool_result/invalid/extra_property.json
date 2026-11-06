@@ -1,0 +1,8 @@
+{
+  "t": "tool.result",
+  "id": "c1",
+  "result": {
+    "ok": true
+  },
+  "zzz_extra": 1
+}
